@@ -16,5 +16,5 @@ model Test {
   id Int @id @default(autoincrement())
   email String @unique
   text String?
-  @@map(name: "your_schema_name.test")
+  @@map(name: "poppy_and_pour.test")
 }
