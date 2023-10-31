@@ -11,31 +11,10 @@ datasource db {
 }
 
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  @@map(name: "poppy_and_pour.post")
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
-  @@map(name: "poppy_and_pour.profile")
-}
-
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
-  @@map(name: "poppy_and_pour.user")
+// when creating tables, you will need to put ---->  @@map(name: "your_schema_name.users") <----  for the last column that will set your SCHEMA NAME that you use for production
+model Test {
+  id Int @id @default(autoincrement())
+  email String @unique
+  text String?
+  @@map(name: "your_schema_name.test")
 }
