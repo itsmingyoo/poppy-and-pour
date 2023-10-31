@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schema   = env("SCHEMA")
 }
 
 
@@ -21,6 +20,7 @@ model Post {
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
+  @@map(name: "poppy_and_pour.post")
 }
 
 model Profile {
@@ -28,6 +28,7 @@ model Profile {
   bio    String?
   user   User    @relation(fields: [userId], references: [id])
   userId Int     @unique
+  @@map(name: "poppy_and_pour.profile")
 }
 
 model User {
@@ -36,4 +37,5 @@ model User {
   name    String?
   posts   Post[]
   profile Profile?
+  @@map(name: "poppy_and_pour.user")
 }
