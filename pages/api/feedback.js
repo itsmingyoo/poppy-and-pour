@@ -4,9 +4,7 @@
 //   res.status(200).json({ name: 'John Doe' })
 // }
 
-
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prisma } from '../../server/db/client'
 
 async function handler(req, res) {
 
