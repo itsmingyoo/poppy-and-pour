@@ -10,6 +10,14 @@
 - Casey 'O Neil - [GitHub](https://github.com/Spoctex) - [LinkedIn](https://www.linkedin.com/in/casey-o-neil-993b7228a/)
 - James Askelson - [GitHub](https://github.com/JamesAskelson) - [LinkedIn](https://www.linkedin.com/in/james-askelson-bb4b6928a/)
 
+# Introduction
+- This project is a custom full-stack app created for a client with integration of shopify to upgrade their [current website](https://poppyandpour.com/).
+
+## Technology:
+- [NextJs](https://nextjs.org/)
+- [Prisma](https://www.prisma.io/)
+- [Shopify](https://www.shopify.com/)
+
 # Getting Started -- README WIP
 
 - Install Packages
@@ -33,3 +41,12 @@ SCHEMA="schema_name"
 ```
 npx prisma migrate dev --name init
 ```
+
+- Run the development server
+```
+npm run dev
+```
+
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+# API Routes
