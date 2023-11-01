@@ -2,7 +2,7 @@
 - [Poppy & Pour Repo](<https://github.com/itsmingyoo/poppy-and-pour/tree/main>)
 
 # Project Manager
-- Jennifer Lee - [](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)
+- Jennifer Lee - [GitHub](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)
 # Developers
 - Minh Tran - [GitHub](https://github.com/itsmingyoo) - [LinkedIn](https://www.linkedin.com/in/minh-tran-36501a251/)
 - Sebastian Stovall - [GitHub](https://github.com/SebastianStovall) - [LinkedIn](https://www.linkedin.com/in/sebastian-stovall-a17a8a211/)
