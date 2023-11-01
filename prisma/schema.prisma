@@ -16,14 +16,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  text  String?
-
-  @@map("poppy_and_pour.test")
-}
-
 model User {
   id Int @id @default(autoincrement())
   firstName String @db.VarChar(30)
@@ -80,7 +72,7 @@ model Photo {
   url String
 }
 
-model ShoppingCart {
+model Cart {
   id Int @id @default(autoincrement())
   userId Int
   productIds String

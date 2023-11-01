@@ -63,13 +63,13 @@ CREATE TABLE "Photo" (
 );
 
 -- CreateTable
-CREATE TABLE "ShoppingCart" (
+CREATE TABLE "Cart" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "productIds" TEXT NOT NULL,
     "total" INTEGER NOT NULL,
 
-    CONSTRAINT "ShoppingCart_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
