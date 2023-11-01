@@ -16,11 +16,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Test {
   id    Int     @id @default(autoincrement())
   email String  @unique
   text  String?
 
   @@map("poppy_and_pour.test")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  firstName String @db.VarChar(30)
+  lastName String? @db.VarChar(30)
+  username String @unique @db.VarChar(30)
+  hashedPassword String
+  email String @unique @db.VarChar(70)
+  isAdmin Boolean
+  isBanned Boolean
+  orders Order[]
+  reviews Review[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id]) // this is the relationship of user to userid
+  userId Int
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  batchId String // String bc UUID generates string characters
+  quantity Int
+  orderDate DateTime @default(now())
+  trackingNumber String? // nullable
+  status Status @default(PROCESSING)
+  total Int
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  review String @db.VarChar(255)
+  rating Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  productName String @db.VarChar(255)
+  category String @db.VarChar(50)
+  price Int
+  color String @db.VarChar(30)
+  description String
+  reviews Review[]
+  orders Order[]
+  photos Photo[]
+}
+
+model Photo {
+  id Int @id @default(autoincrement())
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  url String
+}
+
+model ShoppingCart {
+  id Int @id @default(autoincrement())
+  userId Int
+  productIds String
+  total Int
+}
+
+enum Status {
+  PROCESSING
+  SHIPPED
+  DELIVERING
+  COMPLETED
 }
