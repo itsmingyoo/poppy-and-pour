@@ -1,4 +1,4 @@
-// TODO: ENSURE THIS RUNS OFF OF ONE CLIENT (code below, refactor to function importing two client instances)
+// TODO: ENSURE THIS RUNS OFF OF ONE CLIENT (code below, refactor to function importing two client)
 
 
 // // this is to ensure that we only connect to one instance of Prisma
