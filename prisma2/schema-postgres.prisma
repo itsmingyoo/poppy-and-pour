@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// npx prisma studio                   <--- view data
+// npx prisma migrate dev --name init  <--- generate a migration
+
+// migration needs to be specific to this file path
+//npx prisma migrate dev --schema ./schema-postgres.prisma    <--------- <---- generate a migration for postgresql (production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Test {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  text  String?
+
+  @@map("poppy_and_pour.test")
+}
