@@ -14,7 +14,7 @@
 # Introduction
 - This project is a custom full-stack app created for a client with integration of shopify to upgrade their [current website](https://poppyandpour.com/).
 
-# Technology:
+# Technology
 - [NextJs](https://nextjs.org/)
 - [Prisma](https://www.prisma.io/)
 - [Shopify](https://www.shopify.com/)
