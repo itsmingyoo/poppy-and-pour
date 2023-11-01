@@ -1,7 +1,9 @@
 import { prisma } from '../server/db/client'
 
 
-// seeding users
+try {
+
+    // seeding users
 await prisma.user.createMany({
     data: [
         { firstName: 'Bob', lastName: 'Jones', username: 'BobJones', hashedPassword: 'password', email: 'bobjones@gmail.com', isAdmin: false, isBanned: false },
@@ -113,3 +115,11 @@ await prisma.cart.createMany({
     ],
     skipDuplicates: true
 })
+
+console.log("SEEDED DATA SUCCESSFULLY")
+
+} catch(e) {
+    console.log("ERROR WHILE SEEDING DATA", e)
+} finally {
+    await prisma.$disconnect()
+}
