@@ -57,3 +57,79 @@ npm run dev
 ## API Routes
 
 ## Deploy on Vercel
+
+# For Developers - Setting Up Local & Production Work Environments
+- [Prisma Docs](https://www.prisma.io/dataguide/postgresql/setting-up-a-local-postgresql-database)
+
+## PostgreSQL Installation Steps on Ubuntu
+- Open Ubuntu
+```
+sudo apt update
+sudo apt install postgresql
+# Hit Y and Enter
+```
+
+- Log in to postgres CLI
+```
+sudo -u postgres psql
+
+# if you run into an error, restart ubuntu
+# if you get permission denied, run this command then do the above command again
+
+service postgresql service postgresql restart
+```
+
+- Display Current Databases
+```
+\l
+```
+
+- Display Users
+```
+\du
+```
+
+- Create a User
+```
+CREATE ROLE <username> WITH PASSWORD '<password>';
+
+#Run \du
+
+#New Username should be under 'ROLE NAME' column
+
+#List of roles should be 'Cannot login'
+
+#Empty object for the last column 'Member of'
+```
+
+- Create User Admin Privileges to Create a DB and to Login
+```
+ALTER ROLE <username> WITH SUPERUSER;
+ALTER ROLE <username> WITH CREATEDB;
+ALTER ROLE <username> WITH LOGIN;
+```
+
+- Create Database
+```
+CREATE DATABASE <db-name> WITH OWNER <username>;
+# \l to see the new database is created
+```
+
+- Connect Database to Project .env file
+```
+DATABASE_URL="postgres://<PSQLusername>:<PSQLpassword>@localhost:5432/<postgresDBname>?schema=schema_name"
+```
+
+- Test The Database
+```
+#Create db
+npx prisma migrate dev --name init
+
+#Run app, send feedback, and check console for feedback
+npm run dev
+
+#Run prisma studio to check postgresql database in browser
+npx prisma studio
+```
+
+- **Important Note** - **ONLY HAVE ONE .env FILE -- There should not be a .env.local**
