@@ -1,5 +1,6 @@
 # Project Links - Requirements - Resources
 - [Poppy & Pour Repo](<https://github.com/itsmingyoo/poppy-and-pour/tree/main>)
+- [Poppy & Pour Linktree](https://linktr.ee/poppyandpour)
 
 # Project Manager
 - Jennifer Lee - [GitHub](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)
@@ -13,10 +14,12 @@
 # Introduction
 - This project is a custom full-stack app created for a client with integration of shopify to upgrade their [current website](https://poppyandpour.com/).
 
-## Technology:
+# Technology:
 - [NextJs](https://nextjs.org/)
 - [Prisma](https://www.prisma.io/)
 - [Shopify](https://www.shopify.com/)
+- [Jira](https://www.atlassian.com/software/jira)
+- [GitHub MarkDown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 # Getting Started -- README WIP
 
@@ -49,4 +52,6 @@ npm run dev
 
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# API Routes
+## API Routes
+
+## Deploy on Vercel
