@@ -5,20 +5,22 @@
 # Project Manager
 - Jennifer Lee - [GitHub](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)
 # Developers
-- Minh Tran - [GitHub](https://github.com/itsmingyoo) - [LinkedIn](https://www.linkedin.com/in/minh-tran-36501a251/)
-- Sebastian Stovall - [GitHub](https://github.com/SebastianStovall) - [LinkedIn](https://www.linkedin.com/in/sebastian-stovall-a17a8a211/)
-- Chris Thornburg - [GitHub](https://github.com/CJThornburg) - [LinkedIn](https://www.linkedin.com/in/chris-thornburg-swe/)
-- Casey 'O Neil - [GitHub](https://github.com/Spoctex) - [LinkedIn](https://www.linkedin.com/in/casey-o-neil-993b7228a/)
-- James Askelson - [GitHub](https://github.com/JamesAskelson) - [LinkedIn](https://www.linkedin.com/in/james-askelson-bb4b6928a/)
+- Minh Tran $~~~~~~~~~~~$| [GitHub](https://github.com/itsmingyoo) - [LinkedIn](https://www.linkedin.com/in/minh-tran-36501a251/)
+- Sebastian Stovall $~$| [GitHub](https://github.com/SebastianStovall) - [LinkedIn](https://www.linkedin.com/in/sebastian-stovall-a17a8a211/)
+- Chris Thornburg $~~$|  [GitHub](https://github.com/CJThornburg) - [LinkedIn](https://www.linkedin.com/in/chris-thornburg-swe/)
+- Casey 'O Neil $~~~~~~$| [GitHub](https://github.com/Spoctex) - [LinkedIn](https://www.linkedin.com/in/casey-o-neil-993b7228a/)
+- James Askelson $~~~$| [GitHub](https://github.com/JamesAskelson) - [LinkedIn](https://www.linkedin.com/in/james-askelson-bb4b6928a/)
 
 # Introduction
 - This project is a custom full-stack app created for a client with integration of shopify to upgrade their [current website](https://poppyandpour.com/).
 
 # Technology
+- [Jira](https://www.atlassian.com/software/jira)
 - [NextJs](https://nextjs.org/)
 - [Prisma](https://www.prisma.io/)
 - [Shopify](https://www.shopify.com/)
-- [Jira](https://www.atlassian.com/software/jira)
+- [HTML5](https://html.com/html5/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [GitHub MarkDown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 # Getting Started -- README WIP
