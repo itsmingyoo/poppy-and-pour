@@ -9,6 +9,7 @@ CREATE TABLE "User" (
     "username" VARCHAR(30) NOT NULL,
     "hashedPassword" TEXT NOT NULL,
     "email" VARCHAR(70) NOT NULL,
+    "profilePic" TEXT,
     "isAdmin" BOOLEAN NOT NULL,
     "isBanned" BOOLEAN NOT NULL,
 
@@ -66,7 +67,7 @@ CREATE TABLE "Photo" (
 CREATE TABLE "Cart" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
-    "productIds" TEXT NOT NULL,
+    "products" TEXT NOT NULL,
     "total" INTEGER NOT NULL,
 
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
@@ -77,6 +78,9 @@ CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "Order_batchId_idx" ON "Order"("batchId");
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
