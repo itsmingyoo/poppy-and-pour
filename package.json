@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node seed/seeder.js"
+    "seed": "node seed/seed-all.js",
+    "unseed": "node seed/unseed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
