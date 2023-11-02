@@ -63,8 +63,11 @@ npm run seed
 npm run unseed
 
 # run this command to be able to reseed after unseeding
+# this command will unseed and reset your db for you, so you dont need to run 'npm run unseed'
 npx prisma migrate reset
 npm run seed
+
+
 ```
 
 ###  View Database with Seed Data

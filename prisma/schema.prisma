@@ -23,7 +23,8 @@ model User {
   username       String   @unique @db.VarChar(30)
   hashedPassword String
   email          String   @unique @db.VarChar(70)
-  isAdmin        Boolean
+  profilePic     String?
+  isAdmin        Boolean // if email === cousin's email (set isAdmin = True)
   isBanned       Boolean
   orders         Order[]
   reviews        Review[]
@@ -41,6 +42,8 @@ model Order {
   trackingNumber String? // nullable
   status         Status   @default(PROCESSING)
   total          Int
+
+  @@index([batchId])
 }
 
 model Review {
@@ -77,7 +80,7 @@ model Photo {
 model Cart {
   id         Int    @id @default(autoincrement())
   userId     Int
-  productIds String
+  products   String
   total      Int
 }
 
