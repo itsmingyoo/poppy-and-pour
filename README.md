@@ -62,10 +62,14 @@ npm run seed
 # "unseed": "node seed/unseed.js"
 npm run unseed
 
-# if you unseed, you won't be able to reseed
-# run this command to be able to reseed - this will reset your db
+# run this command to be able to reseed after unseeding
 npx prisma migrate reset
 npm run seed
+```
+
+- View Database with Seed Data
+```
+npx prisma studio
 ```
 
 ## Database & Relationships
