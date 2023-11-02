@@ -54,6 +54,23 @@ npm run dev
 
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+- Seed/Unseed Commands
+```
+# "seed": "node seed/seed-all.js"
+npm run seed
+
+# "unseed": "node seed/unseed.js"
+npm run unseed
+
+# if you unseed, you won't be able to reseed
+# run this command to be able to reseed - this will reset your db
+npx prisma migrate reset
+npm run seed
+```
+
+## Database & Relationships
+## ![Database & Relationships](https://i.imgur.com/mX43A8u.png)
+
 ## API Routes
 
 ## Deploy on Vercel
