@@ -1,54 +1,27 @@
-import { useRef, useState } from "react";
+import { useSession, signOut } from "next-auth/react"
+import Link from "next/link";
 
 function HomePage() {
 
-  const [feedbackItems, setFeedbackItems] = useState([])
-
-  const emailInputRef = useRef()
-  const feedbackInputRef = useRef()
-
-  // this is for a POST request to /api/feedback.js
-  function submitFormHandler(e) {
-    e.preventDefault()
-    const enteredEmail = emailInputRef.current.value
-    const enteredFeedback = feedbackInputRef.current.value
-
-    fetch('/api/feedback', {
-      method: 'POST',
-      body: JSON.stringify({email: enteredEmail, text: enteredFeedback}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json()).then(data => console.log("THIS IS DATA ON FRONTEND FROM FETCH RETURN --->", data))
+  function logoutHandler() {
+    signOut()
   }
 
-  // this is for a GET request to /api/feedback.js
-  async function loadFeedbackHandler() {
-    fetch('/api/feedback')
-    .then((response) => response.json())
-    .then((data) => setFeedbackItems(data));
-  }
+
 
   return (
+
+    
     <div>
-      <h1>The Home Page</h1>
-      <form onSubmit={submitFormHandler}>
-        <div>
-          <label htmlFor="email">Your email address</label>
-          <input type="email" id="email" ref={emailInputRef}/>
-        </div>
-        <div>
-          <label htmlFor="feedback">Your feedback</label>
-          <textarea id="feedback" rows="5" ref={feedbackInputRef}/>
-        </div>
-        <button>Send Feedback</button>
-      </form>
-      <hr />
-      <button onClick={loadFeedbackHandler}>Load All Feedback</button>
-      <ul>
-        {/* dont need to set a !(feedbackIems) statement since useState is orginally an empty arr, so it will map over empty arr [] */}
-        {feedbackItems.map((item) => <li key={item.id}>{item.text}</li>)}
-      </ul>
+      <h1>THE HOME PAGE</h1>
+
+      <Link href='/auth'>login/signup form YO</Link>
+      <br />
+      <Link href='/products'> OUR PRODUCTS (Leads to reviews) </Link>
+      <br />
+      <Link href='/categories'> OUR CATEGORIES </Link>
+      <br />
+      <button onClick={logoutHandler}> !!!! CLICK TO LOGOUT USER !!!! </button>
     </div>
   );
 }
