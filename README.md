@@ -156,3 +156,11 @@ npx prisma studio
 ```
 
 ###  **Important Note** - **ONLY HAVE ONE .env FILE -- There should not be a .env.local**
+
+### Troubleshooting Logging into PSQL
+```
+service postgresql status #14/main (port 5432) down
+pg_lsclusters (Use this to find version number and cluster name for next command)
+sudo pg_ctlcluster <ver> <Cluster> start
+sudo -u postgres psql
+```
