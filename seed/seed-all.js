@@ -96,22 +96,22 @@ const prisma = new PrismaClient()
                 data: [
                     {
                     userId: 1,
-                    productIds: '[1, 1, 2, 3, 4]',
+                    products: '[1, 1, 2, 3, 4]',
                     total: 146
                     },
                     {
                     userId: 2,
-                    productIds: '[1, 3]',
+                    products: '[1, 3]',
                     total: 115
                     },
                     {
                     userId: 3,
-                    productIds: '[2, 4]',
+                    products: '[2, 4]',
                     total: 90
                     },
                     {
                     userId: 4,
-                    productIds: '[1, 2, 3]',
+                    products: '[1, 2, 3]',
                     total: 125
                     },
                 ],
