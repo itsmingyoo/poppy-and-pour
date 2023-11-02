@@ -1,14 +1,38 @@
 import { prisma } from "../../../server/db/client";
 
 async function handler(req, res) {
-  const products = await getAllProducts();
 
-  if (!products)
-    return res.status(500).json({ message: "Error retrieving products" });
+  switch (req.method) {
+    case 'GET':
+      const products = await getAllProducts();
 
-  console.log("PRODUCTS ----> ", products);
+      if (!products)
+        return res.status(500).json({ message: "Error retrieving products" });
 
-  res.status(200).json(products);
+      // console.log("PRODUCTS ----> ", products);
+
+      res.status(200).json(products);
+
+      break;
+
+    case 'POST':
+      console.log('Before json', eq.body)
+      const body = await req.body.json();
+      console.log('After json', body)
+      const newProd = await createProduct(body);
+
+      if (!newProd)
+        return res.status(500).json({ message: "Error creating product" });
+
+      res.status(200).json(newProd);
+
+      break;
+
+    default:
+      break;
+  }
+
+
 }
 
 export async function getAllProducts() {
@@ -18,6 +42,26 @@ export async function getAllProducts() {
   } catch (error) {
     console.error(error);
     // res.status(500).json({ error: "Something Went Wrong Retreiving Products" });
+    return null;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function createProduct(body) {
+  let { productName, category, description, color, price, url } = body;
+  try {
+    const newProd = await prisma.product.create({
+      productName,
+      category,
+      price,
+      color,
+      description
+    });
+    const prodImg = await prisma.photo.create({url, productId : newProd.id});
+    return newProd;
+  } catch {
+    console.error(error);
     return null;
   } finally {
     await prisma.$disconnect();

@@ -1,7 +1,7 @@
 import { prisma } from "../../../server/db/client";
 
 async function handler(req, res) {
-  console.log("aaaaaaaaaaaaaaaaa", req.query.category);
+  console.log("aaaaaaaaaaaaaaaaa", req.method === 'GET');
   const products = await getCategoryProducts(req.query.category);
 
   if (!products) {
@@ -10,7 +10,7 @@ async function handler(req, res) {
       .json({ message: "No products in this category were found" });
   }
 
-  console.log("this is products in the backend handler", products);
+  // console.log("this is products in the backend handler", products);
 
   res.status(200).json(products);
 }
@@ -22,7 +22,7 @@ export async function getCategoryProducts(category) {
         category: category,
       },
     });
-    console.log("this is products in be", products);
+    // console.log("this is products in be", products);
     return products;
   } catch (e) {
     console.error(e);
