@@ -26,8 +26,9 @@ export async function getStaticProps(context) {
   return {
     props: {
       productDetails: product,
-      reviews: allReviews
+      reviews: allReviews,
     },
+    revalidate:5
   };
 }
 
@@ -40,7 +41,7 @@ export async function getStaticPaths(context) {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 }
 

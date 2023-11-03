@@ -16,10 +16,10 @@ async function handler(req, res) {
       break;
 
     case 'POST':
-      console.log('Before json', req.body)
+      // console.log('Before json', req.body)
       // const body = await req.body.json();
       const body = req.body
-      console.log('After json', body)
+      // console.log('After json', body)
       const newProd = await createProduct(body);
 
       if (!newProd)
@@ -51,7 +51,7 @@ export async function getAllProducts() {
 
 export async function createProduct(body) {
   let { productName, category, description, color, price, url } = body;
-  console.log(productName, "<<<<<<<<<<<<<<<<<<<<")
+  // console.log(productName, "<<<<<<<<<<<<<<<<<<<<")
   try {
     const newProd = await prisma.product.create(
      {data: {
