@@ -1,8 +1,7 @@
-import getReviewsForSingleProduct from '../../pages/api/reviews/[productId]'
 
 function SingleProductReviews({reviews}) {
 
-    console.log("DOES THIS WORK????", reviews)
+    // console.log("DOES THIS WORK????", reviews)
 
     return (
         <>
