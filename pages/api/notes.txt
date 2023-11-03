@@ -1,0 +1,9 @@
+This FOLDER NAME is strictly recognized by NextJs
+We do not export react components in API routes, only api routes that function as they should
+We create function 'handlers' that take in a req, res for params -- taking in a request and sending a response
+i.e. Take a look at ./api/feedback.js
+    function handler(req, res) {
+        handles server side code
+        any code here is never exposed to visitors
+    }
+    export default handler

@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// npx prisma studio                   <--- view data
+// npx prisma migrate dev --name init  <--- generate a migration
+
+// migration needs to be specific to this file path
+//npx prisma migrate dev --schema ./schema-postgres.prisma    <--------- <---- generate a migration for postgresql (production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  firstName      String   @db.VarChar(30)
+  lastName       String?  @db.VarChar(30)
+  username       String   @unique @db.VarChar(30)
+  hashedPassword String
+  email          String   @unique @db.VarChar(70)
+  profilePic     String?
+  isAdmin        Boolean // if email === cousin's email (set isAdmin = True)
+  isBanned       Boolean
+  orders         Order[]
+  reviews        Review[]
+}
+
+model Order {
+  id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id]) // this is the relationship of user to userid
+  userId         Int
+  product        Product  @relation(fields: [productId], references: [id])
+  productId      Int
+  batchId        String // String bc UUID generates string characters
+  quantity       Int
+  orderDate      DateTime @default(now())
+  trackingNumber String? // nullable
+  status         Status   @default(PROCESSING)
+  total          Int
+
+  @@index([batchId])
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  review    String   @db.VarChar(255)
+  rating    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  //createdAt DateTime @default(now())
+  //updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  productName String   @db.VarChar(255)
+  category    String   @db.VarChar(50)
+  price       Int
+  color       String   @db.VarChar(30)
+  description String
+  reviews     Review[]
+  orders      Order[]
+  photos      Photo[]
+}
+
+model Photo {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  url       String
+}
+
+model Cart {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  products   String
+  total      Int
+}
+
+enum Status {
+  PROCESSING
+  SHIPPED
+  DELIVERING
+  COMPLETED
+}
