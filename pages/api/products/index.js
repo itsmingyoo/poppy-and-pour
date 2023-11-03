@@ -101,6 +101,11 @@ export async function deleteProduct(id) {
         id: id
       }
     })
+
+
+
+
+
     return true;
   } catch (error) {
     console.error(error);
