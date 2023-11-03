@@ -1,6 +1,8 @@
 # Project Links - Requirements - Resources
 - [Poppy & Pour Repo](<https://github.com/itsmingyoo/poppy-and-pour/tree/main>)
 - [Poppy & Pour Linktree](https://linktr.ee/poppyandpour)
+- [Etsy API Docs](https://developer.etsy.com/documentation/reference/#operation/getShippingCarriers)
+- [Etsy API Changes](https://developer.etsy.com/documentation/migration/summary-changes/#userfeedback)
 
 # Project Manager
 - Jennifer Lee | [GitHub](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)

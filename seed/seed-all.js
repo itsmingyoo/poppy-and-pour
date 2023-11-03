@@ -8,10 +8,10 @@ const prisma = new PrismaClient()
             // seeding users
             await prisma.user.createMany({
                 data: [
-                    { firstName: 'Bob', lastName: 'Jones', username: 'BobJones', hashedPassword: 'password', email: 'bobjones@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'Alice', lastName: 'Smith', username: 'AliceSmith', hashedPassword: 'password', email: 'alicesmith@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'Charlie', lastName: 'Brown', username: 'CharlieBrown', hashedPassword: 'password', email: 'charliebrown@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'David', lastName: 'Johnson', username: 'DavidJohnson', hashedPassword: 'password', email: 'davidjohnson@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Bob', lastName: 'Jones', hashedPassword: 'password', email: 'bobjones@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Alice', lastName: 'Smith', hashedPassword: 'password', email: 'alicesmith@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Charlie', lastName: 'Brown', hashedPassword: 'password', email: 'charliebrown@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'David', lastName: 'Johnson', hashedPassword: 'password', email: 'davidjohnson@gmail.com', isAdmin: false, isBanned: false },
                 ],
                 skipDuplicates: true, // Skip 'Bobo'
             })
