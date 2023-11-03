@@ -1,3 +1,4 @@
+// /api/products
 import { prisma } from "../../../server/db/client";
 
 async function handler(req, res) {
@@ -17,7 +18,6 @@ export async function getAllProducts() {
     return products;
   } catch (error) {
     console.error(error);
-    // res.status(500).json({ error: "Something Went Wrong Retreiving Products" });
     return null;
   } finally {
     await prisma.$disconnect();

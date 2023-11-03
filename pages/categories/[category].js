@@ -1,53 +1,69 @@
 import { useRouter } from "next/router";
 import { getCategoryProducts } from "../api/categories/[category]";
+import { getAllProducts } from "../api/products/index";
 
-function Categories() {
-  const router = useRouter();
-  const category = router.query.category;
+function Categories(props) {
+  const { products } = props;
+  console.log("this is products prop", products);
   return (
     <>
-      <button onClick={() => getAllCategoryProducts(category)}>
+      {/* <button onClick={() => getCategoryProducts(category)}>
         Categories Specific Pages
-      </button>
+      </button> */}
+      {products &&
+        products.map((product) => (
+          <div key={product.id}>
+            <p>{product.productName}</p>
+            <p>{product.category}</p>
+          </div>
+        ))}
     </>
   );
 }
 
-async function getAllCategoryProducts(category) {
-  let products = await fetch(`/api/categories/${category}`);
-
-  products = await products.json();
-
-  console.log("these are products on the frontend", products);
-
-  return products;
-}
-
-// export const getStaticProps = async (context) => {
-//   let products = await getCategoryProducts(context.params.category);
-//   //   if (!products)
-//   //     return res
-//   //       .status(500)
-//   //       .json({ message: "No products of that category found" });
-//   //   else {
+// async function getAllCategoryProducts(category) {
+//   let products = await fetch(`/api/categories/${category}`);
 //   products = await products.json();
-//   console.log("this is products in the getstaticprops", products);
-//   return {
-//     props: { products: products },
-//   };
-//   //   }
-// };
+//   console.log("these are products on the frontend", products);
+//   return products;
+// }
 
+export const getServerSideProps = async (context) => {
+  const category = context.params.category;
+  let products = await getCategoryProducts(category);
+  console.log("this is products in the getServerSideProps", products);
+  return {
+    props: { products: products },
+  };
+};
+
+/** getStaticProps and getStaticPaths won't work here currently
+ *  because we don't have a table to query for all categories
+ *  so we can't put it in the paths
+ */
 // export async function getStaticPaths(context) {
-//   const products = await getCategoryProducts(context.params.category);
-
-//   const paths = products.map((product) => ({
-//     params: { category: product.category },
+//   const allProducts = await getAllProducts();
+//   const paths = allProducts.map((product) => ({
+//     params: { productId: product.id.toString() },
 //   }));
-
 //   return {
 //     paths: paths,
 //     fallback: false,
 //   };
 // }
+
+// export async function getStaticPaths(context) {
+//   const category = context.params.category;
+//   const products = await getCategoryProducts(category);
+//   console.log(products);
+//   console.log(params.category);
+//   const paths = products.map((product) => ({
+//     params: { category: product.category },
+//   }));
+//   return {
+//     paths: paths,
+//     fallback: false,
+//   };
+// }
+
 export default Categories;

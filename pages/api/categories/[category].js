@@ -1,9 +1,10 @@
+// /api/categories/[category]
 import { prisma } from "../../../server/db/client";
 
 async function handler(req, res) {
-  console.log("aaaaaaaaaaaaaaaaa", req.query.category);
   const products = await getCategoryProducts(req.query.category);
 
+  console.log("products in handler for category", products);
   if (!products) {
     return res
       .status(500)
@@ -22,7 +23,6 @@ export async function getCategoryProducts(category) {
         category: category,
       },
     });
-    console.log("this is products in be", products);
     return products;
   } catch (e) {
     console.error(e);
