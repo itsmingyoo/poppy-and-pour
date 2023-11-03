@@ -6,11 +6,12 @@ import SingleProductReviews from "@/components/reviews/singleProductReviews";
 function ProductDetails(props) {
 
   const { productDetails, reviews } = props;
-
+  console.log('Prod Dets',productDetails)
   return (
     <>
       <h2>PRODUCT DETAILS FOR {productDetails.productName} </h2>
       {/* only render review component when prop data has been fully pre-rendered */}
+      <img src={productDetails.photos[0].url}></img>
       {productDetails && reviews && (
         <SingleProductReviews reviews={reviews} />
       )}
