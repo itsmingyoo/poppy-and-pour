@@ -2,9 +2,7 @@ import { useSession } from "next-auth/react";
 
 function SingleProductReviews({ reviews }) {
   // console.log("DOES THIS WORK????", reviews)
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
-  console.log(session);
+
 
   return (
     <>
