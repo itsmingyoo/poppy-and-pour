@@ -33,7 +33,7 @@ function Header() {
                     {/* ONLY IF WE HAVE AN ACTIVE SESSION... WE RENDER A LINK TO THE USER'S PROFILE PAGE! */}
                     {session && (
                         <li>
-                            {/* <Link href="/profile">Profile</Link> */}
+                            <Link href="/profile">Profile</Link>
                         </li> )}
                         {/* ONLY IF WE HAVE AN ACTIVE SESSION... WE RENDER A LOG OUT BUTTON! */}
                     {session && (
