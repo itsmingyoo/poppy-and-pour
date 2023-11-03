@@ -103,7 +103,8 @@ export async function deleteProduct(id) {
     })
 
 
-
+// products page is not hot reloading on delete but is deleting successfully
+// could just have the button on product page and reload to products page
 
 
     return true;
