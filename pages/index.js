@@ -1,5 +1,6 @@
 import { useSession, signOut } from "next-auth/react"
 import Link from "next/link";
+import NewReviewForm from '../components/reviews/addProductReview'
 
 function HomePage() {
 
@@ -11,6 +12,7 @@ function HomePage() {
       <br />
       <Link href='/categories'> OUR CATEGORIES </Link>
       <br />
+      <NewReviewForm/>
     </div>
   );
 }
