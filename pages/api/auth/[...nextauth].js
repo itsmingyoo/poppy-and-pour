@@ -8,7 +8,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 
 import { prisma } from '../../../server/db/client'
 
-import { verifyPassword } from '../../../lib/auth';
+const { verifyPassword } = require('../../../lib/auth')
 
 
 // when we export NextAuth function, we also call it and configure it. By configuring this function, it sets up

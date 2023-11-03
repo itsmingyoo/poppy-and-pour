@@ -2,7 +2,7 @@
 import { prisma } from '../../../server/db/client'
 
 // import helper function from lib folder to hash our password so we can safely store it in our database
-import { hashPassword } from '@/lib/auth'
+const { hashPassword } = require('../../../lib/auth')
 
 // this function will fire when a request is sent to ---> '/api/auth/signup'
 async function handler(req, res) {

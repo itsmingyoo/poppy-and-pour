@@ -1,17 +1,21 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const { hashPassword } = require('../lib/auth')
+
     async function seedDatabase() {
+
+        const samplePassword = await hashPassword('password')
 
         try {
 
             // seeding users
             await prisma.user.createMany({
                 data: [
-                    { firstName: 'Bob', lastName: 'Jones', hashedPassword: 'password', email: 'bobjones@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'Alice', lastName: 'Smith', hashedPassword: 'password', email: 'alicesmith@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'Charlie', lastName: 'Brown', hashedPassword: 'password', email: 'charliebrown@gmail.com', isAdmin: false, isBanned: false },
-                    { firstName: 'David', lastName: 'Johnson', hashedPassword: 'password', email: 'davidjohnson@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Bob', lastName: 'Jones', hashedPassword: samplePassword, email: 'bobjones@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Alice', lastName: 'Smith', hashedPassword: samplePassword, email: 'alicesmith@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'Charlie', lastName: 'Brown', hashedPassword: samplePassword, email: 'charliebrown@gmail.com', isAdmin: false, isBanned: false },
+                    { firstName: 'David', lastName: 'Johnson', hashedPassword: samplePassword, email: 'davidjohnson@gmail.com', isAdmin: false, isBanned: false },
                 ],
                 skipDuplicates: true, // Skip 'Bobo'
             })
