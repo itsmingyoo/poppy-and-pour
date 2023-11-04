@@ -1,44 +1,22 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
-async function createReview(props) {
-    const { review, rating } = props;
+function NewReview() {
+  const router = useRouter();
 
-    const { data: session } = useSession();
-    console.log("hello", session);
-    // session = {user: {email: email}}
-    // query for session email for user
-    // grab user id
-
-    //   const userId = await
-
-    const res = await fetch("/api/reviews", {
-      method: "POST",
-      body: JSON.stringify({ review, rating, userId, productId }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(
-        data.message || "Something went wrong attempting to register user!"
-      );
-    }
-    return data;
-  }
-
-function NewReviewForm() {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [errors, setErrors] = useState({});
 
   async function submitHandler(e) {
     e.preventDefault();
+    const session = await getSession();
 
+    const email = session.user.email;
+    const productId = Number(router.query.productId);
+
+    /*
     // const errorObj = {};
     // if (!review) errorObj.review = "Review needs text";
     // if (!review.length > 100)
@@ -49,9 +27,26 @@ function NewReviewForm() {
     //   setErrors(errorObj);
     //   return;
     // }
+    */
 
-    const res = await createReview(review, rating);
-    console.log("yoyo", res);
+    let res = await fetch("/api/reviews", {
+      method: "POST",
+      body: JSON.stringify({ review, rating, email, productId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    let data = await res.json();
+
+    console.log("this is new review", data);
+
+    if (!res.ok) {
+      throw new Error(
+        "Something went wrong attempting to create a new review!"
+      );
+    }
+    console.log("this is the new review", data);
   }
 
   return (
@@ -72,9 +67,7 @@ function NewReviewForm() {
               placeholder="Write your review here"
             ></textarea>
 
-            <label htmlFor="rating" for="rating">
-              Rating
-            </label>
+            <label htmlFor="rating">Rating</label>
 
             <input
               id="rating"
@@ -95,4 +88,4 @@ function NewReviewForm() {
   );
 }
 
-export default NewReviewForm;
+export default NewReview;

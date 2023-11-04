@@ -8,7 +8,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { prisma } from "../../../server/db/client";
 
-import { verifyPassword } from "../../../lib/auth";
+import { hashPassword, verifyPassword } from "../../../lib/auth";
 
 // when we export NextAuth function, we also call it and configure it. By configuring this function, it sets up
 // auth api routes for us to use... such as configuring our log-in
@@ -43,6 +43,7 @@ export default NextAuth({
         await prisma.$disconnect();
         // request for login was successful, token will be generated for this session user (can be seen in the cookies)
         // this object is being stored as a key in the session object for us to use later (for example, changing a user's password)
+        console.log(user);
         return { email: user.email };
       },
     }),
