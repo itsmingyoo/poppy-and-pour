@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 function NewReview() {
   const router = useRouter();
@@ -9,12 +10,21 @@ function NewReview() {
   const [rating, setRating] = useState(0);
   const [errors, setErrors] = useState({});
 
+  // this method works only in the component
+  const { data: session } = useSession();
+  // console.log("session11111111111", session);
+  // const email = session?.user.email;
+
   async function submitHandler(e) {
     e.preventDefault();
-    const session = await getSession();
-
-    const email = session.user.email;
+    // const session = await getSession();
+    // const email = session.user.email;
     const productId = Number(router.query.productId);
+
+    // getSession requires async/await
+    const session = await getSession();
+    const email = await session?.user.email;
+    console.log("session22222222222", email);
 
     /*
     // const errorObj = {};
@@ -39,7 +49,7 @@ function NewReview() {
 
     let data = await res.json();
 
-    console.log("this is new review", data);
+    console.log("this is res.json() aka data", data);
 
     if (!res.ok) {
       throw new Error(
@@ -47,6 +57,8 @@ function NewReview() {
       );
     }
     console.log("this is the new review", data);
+
+    // router.reload();
   }
 
   return (
