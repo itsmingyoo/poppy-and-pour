@@ -6,15 +6,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-<<<<<<< HEAD
 import { prisma } from '../../../server/db/client'
-
 const { verifyPassword } = require('../../../lib/auth')
-=======
-import { prisma } from "../../../server/db/client";
->>>>>>> reviews-edit
-
-import { hashPassword, verifyPassword } from "../../../lib/auth";
 
 // when we export NextAuth function, we also call it and configure it. By configuring this function, it sets up
 // auth api routes for us to use... such as configuring our log-in
