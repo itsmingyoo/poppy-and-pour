@@ -72,7 +72,7 @@ npm run seed
 
 ```
 
-###  View Database with Seed Data
+### View Database with Seed Data
 ```
 npx prisma studio
 ```
