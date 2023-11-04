@@ -34,8 +34,14 @@ function Header() {
                     {session && (
                         <li>
                             <Link href="/profile">Profile</Link>
-                        </li> )}
-                        {/* ONLY IF WE HAVE AN ACTIVE SESSION... WE RENDER A LOG OUT BUTTON! */}
+                        </li>
+                    )}
+                    {session && (
+                        <li>
+                            <Link href="/orders">Order History</Link>
+                        </li>
+                    )}
+                    {/* ONLY IF WE HAVE AN ACTIVE SESSION... WE RENDER A LOG OUT BUTTON! */}
                     {session && (
                     <li>
                         <button onClick={logoutHandler}>Logout</button>

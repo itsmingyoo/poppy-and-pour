@@ -40,11 +40,17 @@ export default NextAuth({
         }
 
         await prisma.$disconnect();
-        // request for login was successful, token will be generated for this session user (can be seen in the cookies)
-        // this object is being stored as a key in the session object for us to use later (for example, changing a user's password)
-        console.log(user);
-        return { email: user.email };
+
+        return user
       },
     }),
   ],
+  callbacks: {
+    async session({session, token}) {
+      // attach accesstoken to session
+      session.accessToken = token.accessToken
+
+      return session
+    }
+  }
 });
