@@ -52,11 +52,15 @@ function NewReview(props) {
         "Something went wrong attempting to create a new review!"
       );
     }
-    updateReviews(newReview);
+    // Minh's method of re-rendering content using helper function to update state of reviews -- uses getServerSideProps
+    // if you want to use this method -- make sure you change the props you're passing into the [productId].js <singleProductReviews/> props to the state reviews
+    // updateReviews(newReview);
     setReview("");
     setRating(0);
     // router.reload();
-    // router.push('/products/${productId}) -- seb's method of my re-rendering
+
+    // seb's method of my re-rendering -- this getStaticProps and getStaticPaths -- this is faster than getServerSideProps
+    router.push(`/products/${productId}`);
   }
 
   return (
