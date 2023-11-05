@@ -21,7 +21,7 @@ export async function getReviewsForSingleProduct(productId) {
     return reviews;
   } catch (e) {
     console.error(e);
-    return null;
+    throw e; // Re-throw the error to handle it in the calling code
   } finally {
     await prisma.$disconnect();
   }

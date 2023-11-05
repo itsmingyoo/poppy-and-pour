@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-function NewReview() {
+function NewReview(props) {
+  const { updateReviews } = props;
+
   const router = useRouter();
 
   const [review, setReview] = useState("");
@@ -17,14 +19,10 @@ function NewReview() {
 
   async function submitHandler(e) {
     e.preventDefault();
-    // const session = await getSession();
-    // const email = session.user.email;
-    const productId = Number(router.query.productId);
-
     // getSession requires async/await
     const session = await getSession();
     const email = await session?.user.email;
-    console.log("session22222222222", email);
+    const productId = Number(router.query.productId);
 
     /*
     // const errorObj = {};
@@ -47,17 +45,16 @@ function NewReview() {
       },
     });
 
-    let data = await res.json();
-
-    console.log("this is res.json() aka data", data);
+    let newReview = await res.json();
 
     if (!res.ok) {
       throw new Error(
         "Something went wrong attempting to create a new review!"
       );
     }
-    console.log("this is the new review", data);
-
+    updateReviews(newReview);
+    setReview("");
+    setRating(0);
     // router.reload();
   }
 
