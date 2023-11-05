@@ -41,7 +41,7 @@ nvm alias default 20.9
 ###  Create a .env file with the following
 ```
 DATABASE_URL="postgres://your-external-db-link"
-SCHEMA="schema_name"
+NEXTAUTH_SECRET='<supersecretpass>'
 ```
 
 ###  Run Command to Migrate and Create dev.db
