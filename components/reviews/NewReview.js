@@ -56,6 +56,7 @@ function NewReview(props) {
     setReview("");
     setRating(0);
     // router.reload();
+    // router.push('/products/${productId}) -- seb's method of my re-rendering
   }
 
   return (
