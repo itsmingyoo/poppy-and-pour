@@ -21,8 +21,9 @@ export async function getStaticProps(context) {
   const productId = context.params.productId;
   const product = await getProductDetails(productId);
   const allReviews = await getReviewsForSingleProduct(productId);
-
-  // find user here to pass into component as props to recognize whether review belongs to user
+  console.log("RE-RENDER COMPONENT...")
+  // NOTE FOR MINH:
+  // check lines 50 and 51 in components/reviews/NewReview.js for the fix
 
   return {
     props: {

@@ -47,6 +47,8 @@ function NewReview() {
       );
     }
     console.log("this is the new review", data);
+    // push to the same page to trigger serverSideProps() again
+    router.push(`/products/${productId}`)
   }
 
   return (
