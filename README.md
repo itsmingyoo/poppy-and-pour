@@ -1,6 +1,8 @@
 # Project Links - Requirements - Resources
 - [Poppy & Pour Repo](<https://github.com/itsmingyoo/poppy-and-pour/tree/main>)
 - [Poppy & Pour Linktree](https://linktr.ee/poppyandpour)
+- [Etsy API Docs](https://developer.etsy.com/documentation/reference/#operation/getShippingCarriers)
+- [Etsy API Changes](https://developer.etsy.com/documentation/migration/summary-changes/#userfeedback)
 
 # Project Manager
 - Jennifer Lee | [GitHub](https://github.com/CodeJellee) - [LinkedIn](https://www.linkedin.com/in/lee-pac-swe/)
@@ -39,7 +41,7 @@ nvm alias default 20.9
 ###  Create a .env file with the following
 ```
 DATABASE_URL="postgres://your-external-db-link"
-SCHEMA="schema_name"
+NEXTAUTH_SECRET='<supersecretpass>'
 ```
 
 ###  Run Command to Migrate and Create dev.db
@@ -70,7 +72,7 @@ npm run seed
 
 ```
 
-###  View Database with Seed Data
+### View Database with Seed Data
 ```
 npx prisma studio
 ```

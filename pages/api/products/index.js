@@ -1,9 +1,9 @@
+// /api/products
 import { prisma } from "../../../server/db/client";
 
 async function handler(req, res) {
-
   switch (req.method) {
-    case 'GET':
+    case "GET":
       const products = await getAllProducts();
 
       if (!products)
@@ -15,11 +15,11 @@ async function handler(req, res) {
 
       break;
 
-    case 'POST':
-      console.log('Before json', req.body)
+    case "POST":
+      // console.log('Before json', req.body)
       // const body = await req.body.json();
-      const body = req.body
-      console.log('After json', body)
+      const body = req.body;
+      // console.log('After json', body)
       const newProd = await createProduct(body);
 
       if (!newProd)
@@ -32,8 +32,6 @@ async function handler(req, res) {
     default:
       break;
   }
-
-
 }
 
 export async function getAllProducts() {
@@ -42,7 +40,6 @@ export async function getAllProducts() {
     return products;
   } catch (error) {
     console.error(error);
-    // res.status(500).json({ error: "Something Went Wrong Retreiving Products" });
     return null;
   } finally {
     await prisma.$disconnect();
@@ -51,20 +48,22 @@ export async function getAllProducts() {
 
 export async function createProduct(body) {
   let { productName, category, description, color, price, url } = body;
-  console.log(productName, "<<<<<<<<<<<<<<<<<<<<")
+  // console.log(productName, "<<<<<<<<<<<<<<<<<<<<")
   try {
-    const newProd = await prisma.product.create(
-     {data: {
-      productName,
-      category,
-      price,
-      color,
-      description
-    }}
-    );
-    const prodImg = await prisma.photo.create( {data:{url, productId : newProd.id}});
+    const newProd = await prisma.product.create({
+      data: {
+        productName,
+        category,
+        price,
+        color,
+        description,
+      },
+    });
+    const prodImg = await prisma.photo.create({
+      data: { url, productId: newProd.id },
+    });
     return newProd;
-  } catch (error){
+  } catch (error) {
     console.error(error);
     return null;
   } finally {
