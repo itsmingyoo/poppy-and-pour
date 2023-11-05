@@ -6,8 +6,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { prisma } from '../../../server/db/client'
-const { verifyPassword } = require('../../../lib/auth')
+import { prisma } from "../../../server/db/client";
+const { verifyPassword } = require("../../../lib/auth");
 
 // when we export NextAuth function, we also call it and configure it. By configuring this function, it sets up
 // auth api routes for us to use... such as configuring our log-in
@@ -38,19 +38,41 @@ export default NextAuth({
           await prisma.$disconnect();
           throw new Error("Could not log you in!");
         }
-
+        console.log("this is the fucking user", user);
         await prisma.$disconnect();
 
-        return user
+        return user;
       },
     }),
   ],
   callbacks: {
-    async session({session, token}) {
+    async session({ session, token, user }) {
+      console.log("uuuuuuuuuuuuuuuuuuuuuser", session, token, user);
       // attach accesstoken to session
-      session.accessToken = token.accessToken
+      session.accessToken = token.accessToken;
+      session.user.userId = Number(token.sub);
 
-      return session
+      return session;
+    },
+  },
+  async jwt({ token, user }) {
+    if (user) {
+      token.user = user;
     }
-  }
+    return token;
+  },
+  // callbacks: {
+  //   async session({ session, token }) {
+  //     // Store the user object in the session for later access
+  //     session.user = token.user;
+  //     session.accessToken = token.accessToken;
+  //     return session;
+  //   },
+  // async jwt({ token, user }) {
+  //   if (user) {
+  //     token.user = user;
+  //   }
+  //   return token;
+  // },
+  // },
 });

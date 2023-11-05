@@ -20,6 +20,8 @@ async function handler(req, res) {
       res.status(200).json(newReview);
 
       break;
+    case "DELETE":
+      console.log("delete review");
 
     default:
       break;
@@ -51,6 +53,14 @@ export async function createReview(body) {
   } catch (error) {
     console.error(error);
     return null;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function deleteReview(review) {
+  try {
+  } catch (e) {
   } finally {
     await prisma.$disconnect();
   }

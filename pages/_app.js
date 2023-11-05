@@ -1,6 +1,6 @@
-import '@/styles/globals.css'
-import { SessionProvider } from "next-auth/react"
-import Layout from '@/components/layout/layout';
+import "@/styles/globals.css";
+import { SessionProvider } from "next-auth/react";
+import Layout from "@/components/layout/layout";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -15,9 +15,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 }
 
 export default MyApp;
-
-
-
 
 // export default function App({ Component, pageProps }) {
 //   return <Component {...pageProps} />

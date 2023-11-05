@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import Button from "../button/button";
+import { findUserByEmail } from "@/pages/api/auth/findUser";
 
 function NewReview(props) {
   const { updateReviews } = props;
-
   const router = useRouter();
-
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [errors, setErrors] = useState({});
 
   // this method works only in the component
   const { data: session } = useSession();
-  // console.log("session11111111111", session);
-  // const email = session?.user.email;
+  console.log("useSession", session);
+  console.log("props.session", props.session);
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -94,6 +94,10 @@ function NewReview(props) {
             ></input>
             <div>
               <button type="submit">Submit Review</button>
+              <Button type={"submit"} post={"Submit Review"} />
+              {session && (
+                <Button onClick={"deleteHandler"} delete={"Delete Review"} />
+              )}
             </div>
           </div>
         </form>
