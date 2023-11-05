@@ -1,50 +1,86 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { getProductDetails } from "../api/products/[productId]";
 import { getReviewsForSingleProduct } from "../../pages/api/reviews/[productId]";
 import { getAllProducts } from "../api/products";
 import SingleProductReviews from "@/components/reviews/singleProductReviews";
-import NewReviewForm from "@/components/reviews/NewReview";
+import NewReview from "@/components/reviews/NewReview";
+import { render } from "react-dom";
 
 function ProductDetails(props) {
-  const { productDetails, reviews } = props;
+  const { productDetails } = props;
+  const initialReviews = props.reviews;
+  const [reviews, setReviews] = useState(initialReviews);
+
+  const updateReviews = (newReview) => {
+    setReviews([...reviews, newReview]);
+  };
+
+  // useEffect(() => {
+  //   if (reviews) {
+  //     updateReviews(productDetails);
+  //   }
+  // }, [reviews]);
+
+  // async function updateReviews(productDetails) {
+  //   const productId = productDetails.id;
+  //   const updatedReviews = await getReviewsForSingleProduct(productId);
+  //   // Set the updated reviews to trigger a re-render
+  //   setRenderUpdatedReviews(updatedReviews);
+  // }
 
   return (
     <>
-      <h2>PRODUCT DETAILS FOR {productDetails.productName} </h2>
+      <div>product details</div>
+      {/* <h2>PRODUCT DETAILS FOR {productDetails.productName} </h2> */}
       {/* only render review component when prop data has been fully pre-rendered */}
       {productDetails && reviews && <SingleProductReviews reviews={reviews} />}
-      <NewReviewForm />
+      <NewReview updateReviews={updateReviews} />
     </>
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const productId = context.params.productId;
   const product = await getProductDetails(productId);
-  const allReviews = await getReviewsForSingleProduct(productId);
-  console.log("RE-RENDER COMPONENT...")
-  // NOTE FOR MINH:
-  // check lines 50 and 51 in components/reviews/NewReview.js for the fix
-
+  const reviews = await getReviewsForSingleProduct(productId);
   return {
     props: {
       productDetails: product,
-      reviews: allReviews,
+      reviews,
     },
-    revalidate: 1,
   };
 }
 
-export async function getStaticPaths(context) {
-  const allProducts = await getAllProducts();
+// export async function getStaticProps(context) {
+//   const productId = context.params.productId;
+//   const product = await getProductDetails(productId);
+//   const allReviews = await getReviewsForSingleProduct(productId);
 
-  const paths = allProducts.map((product) => ({
-    params: { productId: product.id.toString() },
-  }));
+//   // find user here to pass into component as props to recognize whether review belongs to user
 
-  return {
-    paths: paths,
-    fallback: true,
-  };
-}
+//   return {
+//     props: {
+//       productDetails: product,
+//       reviews: allReviews,
+//     },
+//     revalidate: 1,
+//   };
+// }
+// // product id is rendering old information until refresh within the props due to get static props
+// // to update this, we can use server side or have a usestate to update the reviews value everytime we post a new review
+
+// export async function getStaticPaths(context) {
+//   const allProducts = await getAllProducts();
+
+//   const paths = allProducts.map((product) => ({
+//     params: { productId: product.id.toString() },
+//   }));
+
+//   return {
+//     paths: paths,
+//     fallback: true,
+//   };
+// }
 
 export default ProductDetails;

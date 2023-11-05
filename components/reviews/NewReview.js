@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-function NewReview() {
+function NewReview(props) {
+  const { updateReviews } = props;
+
   const router = useRouter();
 
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [errors, setErrors] = useState({});
 
+  // this method works only in the component
+  const { data: session } = useSession();
+  // console.log("session11111111111", session);
+  // const email = session?.user.email;
+
   async function submitHandler(e) {
     e.preventDefault();
+    // getSession requires async/await
     const session = await getSession();
-
-    const email = session.user.email;
+    const email = await session?.user.email;
     const productId = Number(router.query.productId);
 
     /*
@@ -37,18 +45,17 @@ function NewReview() {
       },
     });
 
-    let data = await res.json();
-
-    console.log("this is new review", data);
+    let newReview = await res.json();
 
     if (!res.ok) {
       throw new Error(
         "Something went wrong attempting to create a new review!"
       );
     }
-    console.log("this is the new review", data);
-    // push to the same page to trigger serverSideProps() again
-    router.push(`/products/${productId}`)
+    updateReviews(newReview);
+    setReview("");
+    setRating(0);
+    // router.reload();
   }
 
   return (

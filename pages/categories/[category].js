@@ -31,7 +31,6 @@ function Categories(props) {
 export const getServerSideProps = async (context) => {
   const category = context.params.category;
   let products = await getCategoryProducts(category);
-  console.log("this is products in the getServerSideProps", products);
   return {
     props: { products: products },
   };
