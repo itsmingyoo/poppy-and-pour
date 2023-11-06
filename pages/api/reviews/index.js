@@ -14,10 +14,24 @@ async function handler(req, res) {
       res.status(200).json(newReview);
 
       break;
+    case "PUT":
+      const adsfaa = await deleteReview(reviewId);
+      console.log("is this the same thing", reviewId);
+
+      if (deletedReview !== null) {
+        console.log("Successfully deleted review!");
+        res.status(200).json({ message: "Review deleted successfully" });
+      } else {
+        console.log("Error deleting review");
+        res.status(500).json({ message: "Error deleting review" });
+      }
+
+      break;
     case "DELETE":
       // const userId = req.body.userId;
       // const productId = req.body.productId;
       const reviewId = req.body.reviewId;
+      console.log("this is the real reviewid for delete", reviewId);
       const deletedReview = await deleteReview(reviewId);
 
       if (deletedReview !== null) {
