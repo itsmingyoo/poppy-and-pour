@@ -48,21 +48,29 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      console.log("TOKEN IN THE SESSION", token);
+    async session({ session, token }) {
       // attach accesstoken to session
+      // console.log("TOKEN IN THE SESSION", token);
       session.accessToken = token.accessToken;
       session.user.userId = Number(token.sub);
+      session.user = token.user;
+
+      // console.log("THIS IS SESSION==========", session);
 
       return session;
     },
-    async jwt(params) {
-      console.log("THIS IS JWT PARAMS", params);
-      if (params.user) {
-        params.token.firstName = params.user.firstName;
+    async jwt({ token, user }) {
+      // console.log("THIS IS JWT USER============", user);
+      // console.log("THIS IS JWT PARAMS============", token);
+      if (user) {
+        token.user = {
+          userId: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        };
       }
-      console.log("THIS IS THE SMUGGLED TOKEN", params.token);
-      return params.token;
+      console.log("THIS IS THE SMUGGLED TOKEN=============", token);
+      return token;
     },
   },
 });
