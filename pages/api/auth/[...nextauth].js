@@ -38,7 +38,9 @@ export default NextAuth({
           await prisma.$disconnect();
           throw new Error("Could not log you in!");
         }
+
         console.log("LOGGED IN USER IN AUTH", user);
+
         await prisma.$disconnect();
 
         return user;
@@ -47,7 +49,7 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log("TOKEN IN THE NEXTAUTH", token);
+      console.log("TOKEN IN THE SESSION", token);
       // attach accesstoken to session
       session.accessToken = token.accessToken;
       session.user.userId = Number(token.sub);
@@ -63,19 +65,4 @@ export default NextAuth({
       return params.token;
     },
   },
-
-  // callbacks: {
-  //   async session({ session, token }) {
-  //     // Store the user object in the session for later access
-  //     session.user = token.user;
-  //     session.accessToken = token.accessToken;
-  //     return session;
-  //   },
-  // async jwt({ token, user }) {
-  //   if (user) {
-  //     token.user = user;
-  //   }
-  //   return token;
-  // },
-  // },
 });
