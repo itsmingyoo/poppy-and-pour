@@ -54,13 +54,14 @@ export default NextAuth({
 
       return session;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
   },
-  async jwt({ token, user }) {
-    if (user) {
-      token.user = user;
-    }
-    return token;
-  },
+
   // callbacks: {
   //   async session({ session, token }) {
   //     // Store the user object in the session for later access
