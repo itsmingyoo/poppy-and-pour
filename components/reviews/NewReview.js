@@ -12,17 +12,15 @@ function NewReview(props) {
   const [rating, setRating] = useState(0);
   const [errors, setErrors] = useState({});
 
-  // this method works only in the component
   const { data: session } = useSession();
-  console.log("useSession", session);
-  console.log("props.session", props.session);
 
   async function submitHandler(e) {
     e.preventDefault();
     // getSession requires async/await
     const session = await getSession();
-    const email = await session?.user.email;
+    const email = session?.user.email;
     const productId = Number(router.query.productId);
+    const userId = session?.user.userId;
 
     /*
     // const errorObj = {};
@@ -39,7 +37,7 @@ function NewReview(props) {
 
     let res = await fetch("/api/reviews", {
       method: "POST",
-      body: JSON.stringify({ review, rating, email, productId }),
+      body: JSON.stringify({ review, rating, userId, productId }),
       headers: {
         "Content-Type": "application/json",
       },
