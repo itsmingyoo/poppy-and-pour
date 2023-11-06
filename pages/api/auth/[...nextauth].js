@@ -38,7 +38,7 @@ export default NextAuth({
           await prisma.$disconnect();
           throw new Error("Could not log you in!");
         }
-        console.log("this is the fucking user", user);
+        console.log("LOGGED IN USER IN AUTH", user);
         await prisma.$disconnect();
 
         return user;
@@ -47,20 +47,23 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      // console.log("uuuuuuuuuuuuuuuuuuuuuser", session, token, user);
+      console.log("TOKEN IN THE NEXTAUTH", token);
       // attach accesstoken to session
       session.accessToken = token.accessToken;
       session.user.userId = Number(token.sub);
 
       return session;
     },
+    async jwt(params) {
+      console.log("THIS IS JWT PARAMS", params);
+      if (params.user) {
+        params.token.firstName = params.user.firstName;
+      }
+      console.log("THIS IS THE SMUGGLED TOKEN", params.token);
+      return params.token;
+    },
   },
-  async jwt({ token, user }) {
-    if (user) {
-      token.user = user;
-    }
-    return token;
-  },
+
   // callbacks: {
   //   async session({ session, token }) {
   //     // Store the user object in the session for later access
