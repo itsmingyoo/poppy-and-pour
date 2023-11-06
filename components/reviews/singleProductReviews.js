@@ -9,11 +9,7 @@ function SingleProductReviews({ reviews }) {
   const userId = session?.user.userId;
 
   async function deleteHandler(reviewId) {
-    // e.preventDefault();
-    // getSession requires async/await
-    const session = await getSession();
     const productId = Number(router.query.productId);
-    const userId = session?.user.userId;
 
     let res = await fetch("/api/reviews", {
       method: "DELETE",
@@ -23,14 +19,30 @@ function SingleProductReviews({ reviews }) {
       },
     });
 
-    console.log("res fetch results", res);
-
     let deletedReview = await res.json();
-
-    console.log("res.json()", deletedReview);
 
     if (!res.ok) {
       throw new Error("Something went wrong attempting to delete a review!");
+    }
+
+    router.push(`/products/${productId}`);
+  }
+
+  async function editHandler(reviewId) {
+    const productId = Number(router.query.productId);
+
+    let res = await fetch("/api/reviews", {
+      method: "PUT",
+      body: JSON.stringify({ reviewId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    let editedReview = await res.json();
+
+    if (!res.ok) {
+      throw new Error("Something went wrong attempting to edit the review!");
     }
 
     router.push(`/products/${productId}`);
@@ -44,13 +56,14 @@ function SingleProductReviews({ reviews }) {
           <p>{review.review}</p>
           <p>RATING: {review.rating}</p>
           {session && review.userId === userId && (
-            <button
-              // delete={"Delete Review"}
-              // type="submit"
-              onClick={() => deleteHandler(review.id)}
-            >
-              Delete Review
-            </button>
+            <>
+              <button onClick={() => editHandler(review.id)}>
+                Edit Review
+              </button>
+              <button onClick={() => deleteHandler(review.id)}>
+                Delete Review
+              </button>
+            </>
           )}
         </div>
       ))}
