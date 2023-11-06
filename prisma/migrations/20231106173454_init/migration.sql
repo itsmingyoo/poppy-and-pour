@@ -6,7 +6,6 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "firstName" VARCHAR(30) NOT NULL,
     "lastName" VARCHAR(30),
-    "username" VARCHAR(30) NOT NULL,
     "hashedPassword" TEXT NOT NULL,
     "email" VARCHAR(70) NOT NULL,
     "profilePic" TEXT,
@@ -72,9 +71,6 @@ CREATE TABLE "Cart" (
 
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

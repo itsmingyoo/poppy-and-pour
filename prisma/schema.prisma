@@ -20,7 +20,7 @@ model User {
   id             Int      @id @default(autoincrement())
   firstName      String   @db.VarChar(30)
   lastName       String?  @db.VarChar(30)
-  username       String   @unique @db.VarChar(30)
+  //username       String   @unique @db.VarChar(30)
   hashedPassword String
   email          String   @unique @db.VarChar(70)
   profilePic     String?
