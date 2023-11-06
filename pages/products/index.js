@@ -89,12 +89,13 @@ function Products(props) {
 
 export async function getStaticProps(context) {
     const allProducts = await getAllProducts()
+    console.log("GRABBING LATEST DATA FROM BACKEND...")
 
     return {
         props: {
             products: allProducts
         },
-        revalidate: 60
+        revalidate: 1
         // if a minute has passed and a new request came in, regenerate this page to get the latest data
     }
 }
