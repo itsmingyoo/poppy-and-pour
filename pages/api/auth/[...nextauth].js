@@ -47,7 +47,7 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log("uuuuuuuuuuuuuuuuuuuuuser", session, token, user);
+      // console.log("uuuuuuuuuuuuuuuuuuuuuser", session, token, user);
       // attach accesstoken to session
       session.accessToken = token.accessToken;
       session.user.userId = Number(token.sub);

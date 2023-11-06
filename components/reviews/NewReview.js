@@ -18,7 +18,6 @@ function NewReview(props) {
     e.preventDefault();
     // getSession requires async/await
     const session = await getSession();
-    const email = session?.user.email;
     const productId = Number(router.query.productId);
     const userId = session?.user.userId;
 
@@ -93,9 +92,6 @@ function NewReview(props) {
             <div>
               <button type="submit">Submit Review</button>
               <Button type={"submit"} post={"Submit Review"} />
-              {session && (
-                <Button onClick={"deleteHandler"} delete={"Delete Review"} />
-              )}
             </div>
           </div>
         </form>

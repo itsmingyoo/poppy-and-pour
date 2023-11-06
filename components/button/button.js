@@ -5,12 +5,20 @@ function Button(props) {
   }
   // Edit Review Button
   if (props.edit) {
-    return <button onClick={props.onClick}>{props.edit}</button>;
+    return (
+      <button type={props.type} onClick={props.onClick}>
+        {props.edit}
+      </button>
+    );
   }
 
   // Delete Review Button
   if (props.delete) {
-    return <button onClick={props.onClick}>{props.delete}</button>;
+    return (
+      <button type={props.type} onClick={props.onClick}>
+        {props.delete}
+      </button>
+    );
   }
 }
 

@@ -5,8 +5,6 @@ async function handler(req, res) {
   switch (req.method) {
     case "POST":
       const body = req.body;
-      console.log("this is req", req);
-      console.log("this is req.body", req.body);
 
       const newReview = await createReview(body);
 
@@ -17,9 +15,19 @@ async function handler(req, res) {
 
       break;
     case "DELETE":
-      console.log("delete review route");
+      // const userId = req.body.userId;
+      // const productId = req.body.productId;
+      const reviewId = req.body.reviewId;
+      const deletedReview = await deleteReview(reviewId);
 
-    // await deleteReview(userId)
+      if (deletedReview !== null) {
+        console.log("Successfully deleted review!");
+        res.status(200).json({ message: "Review deleted successfully" });
+      } else {
+        console.log("Error deleting review");
+        res.status(500).json({ message: "Error deleting review" });
+      }
+      break;
 
     default:
       break;
@@ -54,18 +62,19 @@ export async function createReview(body) {
   }
 }
 
-export async function deleteReview(userId) {
+export async function deleteReview(reviewId) {
   try {
+    console.log("this is the reviewid", reviewId);
     const review = await prisma.review.delete({
       where: {
-        userId,
+        id: reviewId,
       },
     });
     console.log("delete successful", review);
-    return null;
+    return "Review deleted successfully";
   } catch (e) {
-    console.error(error);
-    return null;
+    console.error(e);
+    return "Error deleting review";
   } finally {
     await prisma.$disconnect();
   }
