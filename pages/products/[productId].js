@@ -5,12 +5,15 @@ import { getReviewsForSingleProduct } from "../../pages/api/reviews/[productId]"
 import { getAllProducts } from "../api/products";
 import SingleProductReviews from "@/components/reviews/singleProductReviews";
 import NewReview from "@/components/reviews/NewReview";
+import { useSession } from "next-auth/react";
 import { render } from "react-dom";
 
 function ProductDetails(props) {
   const { productDetails } = props;
   const initialReviews = props.reviews;
   const [reviews, setReviews] = useState(initialReviews);
+
+  const { data: session } = useSession();
 
   const updateReviews = (newReview) => {
     setReviews([...reviews, newReview]);
@@ -37,7 +40,7 @@ function ProductDetails(props) {
       {productDetails && reviews && (
         <SingleProductReviews reviews={initialReviews} />
       )}
-      <NewReview updateReviews={updateReviews} />
+      {session && <NewReview updateReviews={updateReviews} />}
     </>
   );
 }
@@ -59,7 +62,7 @@ export async function getStaticProps(context) {
   const productId = context.params.productId;
   const product = await getProductDetails(productId);
   const allReviews = await getReviewsForSingleProduct(productId);
-  console.log("GRABBING LATEST DATA FROM BACKEND...")
+  console.log("GRABBING LATEST DATA FROM BACKEND...");
   // find user here to pass into component as props to recognize whether review belongs to user
 
   return {
