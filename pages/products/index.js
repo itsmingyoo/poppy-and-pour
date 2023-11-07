@@ -19,7 +19,7 @@ function Products(props) {
     //     console.log("PRODUCTS RECEIVED ON FRONTEND ", products)
     // }
 
-    async function handleSumbit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
 
@@ -47,6 +47,19 @@ function Products(props) {
 
     }
 
+    async function handleDelete(id) {
+
+        const deleteRes = await fetch(
+            "/api/products", {
+                method: "DELETE",
+                body: JSON.stringify({id:id}),
+                headers: { 'Content-Type': 'application/json' }
+            })
+
+        const deleteMessage = await deleteRes.json()
+
+    }
+
     return (
         <>
             <h1>PRODUCTS PAGE</h1>
@@ -56,12 +69,14 @@ function Products(props) {
                         <h3>{product.productName}</h3>
                         <p>{product.price}</p>
                         <button onClick={() => router.push(`/products/${product.id}`)}>CLICK FOR DETAILS</button>
+
+                        <button onClick={() =>{handleDelete(product.id)}}> delete</button>
                     </div>
                 )
             })}
             {/* <button onClick={getAllProducts}>GET ALL PRODUCTS</button> */}
             <button onClick={() => { setFormVis(!formVis) }}>{!formVis ? 'NEW PRODUCT' : 'CANCEL'}</button>
-            {formVis && <form onSubmit={handleSumbit}>
+            {formVis && <form onSubmit={handleSubmit}>
                 <input type='string' placeholder='Product Name' value={productName} onChange={(e) => setProductName(e.target.value)} />
                 <select value={category} onChange={(e) => setCategory(e.target.value === 'Category' ? null : e.target.value)}>
                     <option value={null}>Category</option>

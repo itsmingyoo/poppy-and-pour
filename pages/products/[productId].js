@@ -19,24 +19,13 @@ function ProductDetails(props) {
     setReviews([...reviews, newReview]);
   };
 
-  // useEffect(() => {
-  //   if (reviews) {
-  //     updateReviews(productDetails);
-  //   }
-  // }, [reviews]);
-
-  // async function updateReviews(productDetails) {
-  //   const productId = productDetails.id;
-  //   const updatedReviews = await getReviewsForSingleProduct(productId);
-  //   // Set the updated reviews to trigger a re-render
-  //   setRenderUpdatedReviews(updatedReviews);
-  // }
 
   return (
     <>
       <div>product details</div>
       {/* <h2>PRODUCT DETAILS FOR {productDetails.productName} </h2> */}
       {/* only render review component when prop data has been fully pre-rendered */}
+      <img src={productDetails.photos[0].url}></img>
       {productDetails && reviews && (
         <SingleProductReviews reviews={initialReviews} />
       )}

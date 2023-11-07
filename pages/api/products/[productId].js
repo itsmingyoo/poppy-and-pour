@@ -18,6 +18,13 @@ export async function getProductDetails(productId) {
       where: {
         id: parseInt(productId),
       },
+      include: {
+        photos: {
+          select: {
+            url: true
+          }
+        }
+      }
     });
     return product;
   } catch (e) {
