@@ -7,11 +7,13 @@ import SingleProductReviews from "@/components/reviews/singleProductReviews";
 import NewReview from "@/components/reviews/NewReview";
 import { useSession } from "next-auth/react";
 import { render } from "react-dom";
+import EditProductForm from "@/components/products/EditProductForm";
 
 function ProductDetails(props) {
   const { productDetails } = props;
   const initialReviews = props.reviews;
   const [reviews, setReviews] = useState(initialReviews);
+  const [loading, setLoading] = useState(true);
 
   const { data: session } = useSession();
 
@@ -20,16 +22,28 @@ function ProductDetails(props) {
   };
 
 
+  // if you want to avoid adding '?'s in the jsx return
+  useEffect(() => {
+    if (productDetails && initialReviews) {
+      setLoading(false);
+    }
+  }, [productDetails, initialReviews]);
+
+  if(loading) return <p>Loading...</p>
+
   return (
     <>
       <div>product details</div>
-      {/* <h2>PRODUCT DETAILS FOR {productDetails.productName} </h2> */}
-      {/* only render review component when prop data has been fully pre-rendered */}
+      <p>{productDetails.productName}</p>
+      <p>{productDetails.price}</p>
+      <p>{productDetails.description}</p>
+      <p>{productDetails.color}</p>
       <img src={productDetails.photos[0].url}></img>
       {productDetails && reviews && (
         <SingleProductReviews reviews={initialReviews} />
       )}
       {session && <NewReview updateReviews={updateReviews} />}
+      {session && <EditProductForm productId={productDetails.id} currentProductDetails={productDetails}  />}
     </>
   );
 }
