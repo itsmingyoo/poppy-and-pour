@@ -38,7 +38,11 @@ export async function getProductDetails(productId) {
         id: parseInt(productId),
       },
       include: {
-        photos: true, // Include the related photos
+        photos: {
+          select: {
+            url: true
+          }
+        }
       },
     });
     return product;

@@ -1,13 +1,22 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 function UserReview(props) {
   const { review } = props;
+
   const { data: session } = useSession();
   const userId = session?.user.userId;
-
   const router = useRouter();
 
+  // State to track whether the review is in edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedReview, setEditedReview] = useState(review.review); // Store edited review content
+  const [editedRating, setEditedRating] = useState(review.rating); // Store edited rating
+  //   console.log("this is review", editedReview);
+  //   console.log("this is rating", editedRating);
+
+  // button handler functions
   async function deleteHandler(reviewId) {
     const productId = Number(router.query.productId);
 
@@ -28,34 +37,87 @@ function UserReview(props) {
     router.push(`/products/${productId}`);
   }
 
-  async function editHandler(reviewId) {
+  async function updateHandler(id) {
     const productId = Number(router.query.productId);
 
     let res = await fetch("/api/reviews", {
       method: "PUT",
-      body: JSON.stringify({ reviewId }),
+      body: JSON.stringify({
+        id,
+        review: editedReview,
+        rating: editedRating,
+      }), // Send the edited review content
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    let editedReview = await res.json();
+    let updatedReview = await res.json();
 
     if (!res.ok) {
       throw new Error("Something went wrong attempting to edit the review!");
     }
 
+    // Exit edit mode after successfully updating the review
+    setIsEditing(false);
+
     router.push(`/products/${productId}`);
   }
+
+  //   async function editHandler(reviewId) {
+  //     const productId = Number(router.query.productId);
+
+  //     let res = await fetch("/api/reviews", {
+  //       method: "PUT",
+  //       body: JSON.stringify({ reviewId }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     let editedReview = await res.json();
+
+  //     if (!res.ok) {
+  //       throw new Error("Something went wrong attempting to edit the review!");
+  //     }
+
+  //     router.push(`/products/${productId}`);
+  //   }
 
   return (
     <>
       <div key={review.id}>
-        <p>{review.review}</p>
-        <p>RATING: {review.rating}</p>
+        {isEditing ? ( // Render the edit form when isEditing is true
+          <div>
+            <textarea
+              value={editedReview}
+              onChange={(e) => setEditedReview(e.target.value)}
+            />
+            <input
+              type="number"
+              value={editedRating}
+              onChange={(e) => setEditedRating(e.target.value)}
+              min={0}
+              max={5}
+            />
+            <button onClick={() => updateHandler(review.id)}>
+              Save Review
+            </button>
+          </div>
+        ) : (
+          // Render review details when isEditing is false
+          <>
+            <p>{editedReview}</p>
+            <p>RATING: {editedRating}</p>
+          </>
+        )}
         {session && review.userId === userId && (
           <>
-            <button onClick={() => editHandler(review.id)}>Edit Review</button>
+            {isEditing ? ( // Hide the "Edit Review" button when editing
+              <button onClick={() => setIsEditing(false)}>Cancel Edit</button>
+            ) : (
+              <button onClick={() => setIsEditing(true)}>Edit Review</button>
+            )}
             <button onClick={() => deleteHandler(review.id)}>
               Delete Review
             </button>

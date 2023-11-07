@@ -21,18 +21,6 @@ function ProductDetails(props) {
     setReviews([...reviews, newReview]);
   };
 
-  // useEffect(() => {
-  //   if (reviews) {
-  //     updateReviews(productDetails);
-  //   }
-  // }, [reviews]);
-
-  // async function updateReviews(productDetails) {
-  //   const productId = productDetails.id;
-  //   const updatedReviews = await getReviewsForSingleProduct(productId);
-  //   // Set the updated reviews to trigger a re-render
-  //   setRenderUpdatedReviews(updatedReviews);
-  // }
 
   // if you want to avoid adding '?'s in the jsx return
   useEffect(() => {
@@ -50,7 +38,7 @@ function ProductDetails(props) {
       <p>{productDetails.price}</p>
       <p>{productDetails.description}</p>
       <p>{productDetails.color}</p>
-
+      <img src={productDetails.photos[0].url}></img>
       {productDetails && reviews && (
         <SingleProductReviews reviews={initialReviews} />
       )}
