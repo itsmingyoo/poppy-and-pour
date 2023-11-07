@@ -57,8 +57,9 @@ function Products(props) {
             })
 
         const deleteMessage = await deleteRes.json()
-
-        if(deleteMessage) router.push('/products')
+            console.log(deleteMessage.message)
+        if(deleteMessage.message === "product was deleted") router.push('/products')
+        else alert("There was an error deleting this product, please try again later :(")
     }
 
     return (
