@@ -22,7 +22,7 @@ CREATE TABLE "Order" (
     "productId" INTEGER NOT NULL,
     "batchId" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "orderDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "orderDate" TEXT NOT NULL,
     "trackingNumber" TEXT,
     "status" "Status" NOT NULL DEFAULT 'PROCESSING',
     "total" INTEGER NOT NULL,

@@ -38,7 +38,7 @@ model Order {
   productId      Int
   batchId        String // String bc UUID generates string characters
   quantity       Int
-  orderDate      DateTime @default(now())
+  orderDate      String
   trackingNumber String? // nullable
   status         Status   @default(PROCESSING)
   total          Int

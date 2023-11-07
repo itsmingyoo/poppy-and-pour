@@ -65,7 +65,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 2,
                     batchId: 'uuid124',
                     quantity: 3,
-                    orderDate: new Date(),
+                    orderDate: new Date().toISOString(),
                     trackingNumber: '2345678901',
                     status: 'PROCESSING',
                     total: 45
@@ -75,7 +75,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 3,
                     batchId: 'uuid125',
                     quantity: 2,
-                    orderDate: new Date(),
+                    orderDate:new Date().toISOString(),
                     trackingNumber: '3456789012',
                     status: 'DELIVERING',
                     total: 30
@@ -85,7 +85,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 4,
                     batchId: 'uuid126',
                     quantity: 1,
-                    orderDate: new Date(),
+                    orderDate: new Date().toISOString(),
                     trackingNumber: '4567890123',
                     status: 'COMPLETED',
                     total: 15

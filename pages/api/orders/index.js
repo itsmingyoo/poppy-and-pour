@@ -9,21 +9,25 @@ async function handler(req, res) {
 
     // If you don't have NEXTAUTH_SECRET set, you will have to pass your secret as `secret` to `getToken`
     const token = await getToken({ req, secret })
-    console.log("THIS IS TOKEN", token)
+    // console.log("THIS IS TOKEN", token)
     if (!token) {
         res.status(401).json({message: "Unathorized to make this request"})
     }
 
     const userId = Number(token.sub)
-    console.log("THIS IS USERID", userId)
-    // const orders = await getAllOrders()
-    res.status(200).json(null)
+    // console.log("THIS IS USERID", userId)
+    const orders = await getAllOrders(userId)
+
+    if(!orders) return res.status(500).json({message: 'Error while retreiving order data'})
+
+    console.log("ORDERS ----> ", orders)
+    res.status(200).json(orders)
 
 }
 
-async function getAllOrders() {
+export async function getAllOrders(userId) {
     try {
-        const orders = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id: userId,
             },
@@ -31,6 +35,7 @@ async function getAllOrders() {
                 orders: true, // Include the user's orders in the query
             },
         });
+        return user.orders
     } catch(e) {
         console.error(error);
         return null;
