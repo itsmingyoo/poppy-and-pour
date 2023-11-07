@@ -90,7 +90,6 @@ function NewReview(props) {
               onChange={(e) => setRating(e.target.value)}
             ></input>
             <div>
-              <button type="submit">Submit Review</button>
               <Button type={"submit"} post={"Submit Review"} />
             </div>
           </div>
