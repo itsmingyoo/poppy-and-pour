@@ -15,16 +15,10 @@ async function handler(req, res) {
 
       break;
     case "PUT":
-      const adsfaa = await deleteReview(reviewId);
-      console.log("is this the same thing", reviewId);
+      const oldReview = req.body;
+      const updatedReview = await editReview(oldReview);
 
-      if (deletedReview !== null) {
-        console.log("Successfully deleted review!");
-        res.status(200).json({ message: "Review deleted successfully" });
-      } else {
-        console.log("Error deleting review");
-        res.status(500).json({ message: "Error deleting review" });
-      }
+      res.status(200).json(updatedReview);
 
       break;
     case "DELETE":
@@ -52,12 +46,6 @@ export async function createReview(body) {
   try {
     let { review, rating, userId, productId } = body;
 
-    // const user = await findUserByEmail(email); // dont need this anymore because we now have userid from the session object
-    // if (!user) {
-    //   throw new Error("User not found");
-    // }
-    // console.log("this is user in the query", user);
-
     const newReview = await prisma.review.create({
       data: {
         review,
@@ -68,11 +56,32 @@ export async function createReview(body) {
     });
 
     return newReview;
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.error(e);
     return null;
   } finally {
     await prisma.$disconnect();
+  }
+}
+
+export async function editReview(oldReview) {
+  try {
+    const { id, review, rating } = oldReview;
+    const updateReview = await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        review,
+        rating: Number(rating),
+      },
+    });
+    return updateReview;
+  } catch (e) {
+    console.error(e);
+    return null;
+  } finally {
+    await prisma.$disconnect;
   }
 }
 
