@@ -58,6 +58,7 @@ function Products(props) {
 
         const deleteMessage = await deleteRes.json()
 
+        if(deleteMessage) router.push('/products')
     }
 
     return (
