@@ -4,7 +4,7 @@ import { getProductDetails } from "../api/products/[productId]";
 import { getReviewsForSingleProduct } from "../../pages/api/reviews/[productId]";
 import { getAllProducts } from "../api/products";
 import SingleProductReviews from "@/components/reviews/singleProductReviews";
-import NewReview from "@/components/reviews/NewReview";
+import NewReview from "@/components/reviews/newReview";
 import { useSession } from "next-auth/react";
 import { render } from "react-dom";
 import EditProductForm from "@/components/products/EditProductForm";
@@ -21,7 +21,6 @@ function ProductDetails(props) {
     setReviews([...reviews, newReview]);
   };
 
-
   // if you want to avoid adding '?'s in the jsx return
   useEffect(() => {
     if (productDetails && initialReviews) {
@@ -29,7 +28,7 @@ function ProductDetails(props) {
     }
   }, [productDetails, initialReviews]);
 
-  if(loading) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
@@ -43,7 +42,12 @@ function ProductDetails(props) {
         <SingleProductReviews reviews={initialReviews} />
       )}
       {session && <NewReview updateReviews={updateReviews} />}
-      {session && <EditProductForm productId={productDetails.id} currentProductDetails={productDetails}  />}
+      {session && (
+        <EditProductForm
+          productId={productDetails.id}
+          currentProductDetails={productDetails}
+        />
+      )}
     </>
   );
 }
