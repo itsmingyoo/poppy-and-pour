@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import classes from './auth-form.module.css'
 
 // call signIn function to validate credentials (setup for this provider is found in [...nextauth].js file)
@@ -126,48 +126,37 @@ function AuthForm() {
 
     return (
         <section className={classes.auth}>
-            <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
             <form onSubmit={submitHandler}>
                 {!isLogin && (
                     <>
-                        <div className={classes.control}>
-                            <label htmlFor="firstName">First Name</label>
-                            <input
-                                type="text"
-                                label="First Name"
-                                id="firstName"
-                                onChange={(e) => setFirstName(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="lastName">Last Name</label>
-                            <input
-                                type="text"
-                                label="Last Name"
-                                id="lastName"
-                                onChange={(e) => setLastName(e.target.value)}
-                            />
-                        </div>
+                        <TextField
+                            type="text"
+                            label="First Name"
+                            id="firstName"
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <TextField
+                            type="text"
+                            label="Last Name"
+                            id="lastName"
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
                     </>
                 )}
-                <div className={classes.control}>
-                    <label htmlFor="email">Your Email</label>
-                    <TextField
-                        type="email"
-                        id="email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div className={classes.control}>
-                    <label htmlFor="password">Your Password</label>
-                    <TextField
-                        type="password"
-                        id="password"
-                        required
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+                <TextField
+                    type="email"
+                    id="email"
+                    label="Email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                    type="password"
+                    id="password"
+                    label="Password"
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 <div className={classes.actions}>
                     <button type="submit">
                         {isLogin ? 'Login' : 'Create Account'}
