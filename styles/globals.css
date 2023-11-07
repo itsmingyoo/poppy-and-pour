@@ -25,3 +25,7 @@ button {
   color: black;
   background-color: grey;
 }
+
+.errors {
+  color: red;
+}
