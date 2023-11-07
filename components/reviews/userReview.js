@@ -107,8 +107,8 @@ function UserReview(props) {
         ) : (
           // Render review details when isEditing is false
           <>
-            <p>{review.review}</p>
-            <p>RATING: {review.rating}</p>
+            <p>{editedReview}</p>
+            <p>RATING: {editedRating}</p>
           </>
         )}
         {session && review.userId === userId && (
