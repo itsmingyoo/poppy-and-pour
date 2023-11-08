@@ -1,5 +1,5 @@
 import GetShopifyProducts from "../../components/shopify";
-import { getAllProducts } from "../../pages/api/shopify/index";
+import { getAllProducts } from "../../lib/shopify";
 import { useEffect, useState } from "react"; // Import React hooks
 
 function ShopifyProducts({ products }) {
