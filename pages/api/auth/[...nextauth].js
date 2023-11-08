@@ -69,7 +69,7 @@ export default NextAuth({
           lastName: user.lastName,
         };
       }
-      console.log("THIS IS THE SMUGGLED TOKEN=============", token);
+      // console.log("THIS IS THE SMUGGLED TOKEN=============", token);
       return token;
     },
   },
