@@ -2,7 +2,7 @@ import { useState } from "react"; // Import React hooks
 
 function GetShopifyProducts({ products }) {
   console.log("PRODUCTS RESULT FROM GRAPHQL QUERY --->", products);
-  const allProducts = products.body.data.products.edges;
+  const allProducts = products.data.products.edges;
 
   return (
     <div>
