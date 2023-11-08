@@ -1,8 +1,8 @@
-import GetShopifyProducts from "../../components/shopify/test";
+import GetShopifyProducts from "../../components/shopify";
 import { getAllProducts } from "../../pages/api/shopify/index";
 import { useEffect, useState } from "react"; // Import React hooks
 
-function ShopifyProducts({products}) {
+function ShopifyProducts({ products }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,7 +16,6 @@ function ShopifyProducts({products}) {
   return <GetShopifyProducts products={products} />;
 }
 
-
 export async function getServerSideProps(context) {
   const allProducts = await getAllProducts();
   console.log("REGENERATING PAGE...");
@@ -24,7 +23,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       products: allProducts,
-    }
+    },
   };
 }
 

@@ -33,7 +33,7 @@ export async function shopifyFetch({ query }) {
 }
 
 export async function getAllProducts() {
-  console.log("we are in the getAllProducts function call");
+  console.log("running getAllProducts");
   return shopifyFetch({
     query: `{
         products(sortKey: TITLE, first: 100) {
