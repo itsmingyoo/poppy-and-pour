@@ -1,5 +1,5 @@
-require("dotenv").config();
-console.log("dotenv loaded");
+// require("dotenv").config();
+// console.log("dotenv loaded");
 // console.log(process.env);
 export async function shopifyFetch({ query }) {
   const endpoint = process.env.SHOPIFY_STORE_DOMAIN;

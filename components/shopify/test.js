@@ -1,46 +1,23 @@
-import { useEffect, useState } from "react"; // Import React hooks
-import { getAllProducts } from "../../pages/api/shopify/index";
+import { useState } from "react"; // Import React hooks
 
 function GetShopifyProducts({ products }) {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  console.log("this is products result", products);
-
-  // useEffect(() => {
-  //   if (products) {
-  //     setLoading(false);
-  //   }
-  // }, [products]);
-
-  // if (loading) return <p>Loading...</p>;
+  console.log("PRODUCTS RESULT FROM GRAPHQL QUERY --->", products);
 
   return (
     <div>
       <h2>Shopify Products</h2>
-      {error && <p>Error: {error}</p>}
+      {/* {error && <p>Error: {error}</p>} */}
       <ul>
-        {products &&
+        {products.length > 0 ?
           products.map((product) => (
             <li key={product.node.id}>
               <h3>{product.node.title}</h3>
               <p>{product.node.description}</p>
             </li>
-          ))}
+          )) : <p>Unable to display product information...</p>}
       </ul>
     </div>
   );
-}
-
-export async function getStaticProps(context) {
-  const allProducts = await getAllProducts();
-  console.log("REGENERATING PAGE...");
-
-  return {
-    props: {
-      products: allProducts,
-    },
-    revalidate: 1,
-  };
 }
 
 export default GetShopifyProducts;
