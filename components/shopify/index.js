@@ -12,8 +12,8 @@ function GetShopifyProducts({ products }) {
         {allProducts.length > 0 ? (
           allProducts.map((product) => (
             <li key={product.node.id}>
-              <h3>{product.node.title}</h3>
-              <p>{product.node.description}</p>
+              <h3>Title: {product.node.title}</h3>
+              <p>Description: {product.node.description}</p>
             </li>
           ))
         ) : (

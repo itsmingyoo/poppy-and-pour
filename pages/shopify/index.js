@@ -1,5 +1,5 @@
 import GetShopifyProducts from "../../components/shopify";
-import { getAllProducts } from "../../lib/shopify";
+import { getAllProducts, getFirstThreeProducts } from "../../lib/shopify";
 import { useEffect, useState } from "react"; // Import React hooks
 
 function ShopifyProducts({ products }) {
@@ -18,6 +18,7 @@ function ShopifyProducts({ products }) {
 
 export async function getServerSideProps(context) {
   const allProducts = await getAllProducts();
+  // const firstThree = await getFirstThreeProducts();
   console.log("REGENERATING PAGE...");
 
   return {
