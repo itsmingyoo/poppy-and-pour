@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run cleanup && next dev",
+    "dev": "next dev",
     "build": "prisma generate && prisma migrate deploy && npm run seed && next build",
     "start": "next start",
     "lint": "next lint",

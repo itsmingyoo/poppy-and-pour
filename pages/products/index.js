@@ -1,7 +1,12 @@
 import { useState } from "react"
 import { getAllProducts } from "../api/products"
 import { useRouter } from 'next/router'
-import { Typography } from "@mui/material"
+import { Typography, CardActionArea } from "@mui/material"
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid'
+import Item from '@mui/material/Grid'
 
 function Products(props) {
     const { products } = props
@@ -44,7 +49,7 @@ function Products(props) {
 
         const productData = await response.json()
 
-        if(productData.id)router.push(`/products/${productData.id}`)
+        if (productData.id) router.push(`/products/${productData.id}`)
 
     }
 
@@ -52,32 +57,96 @@ function Products(props) {
 
         const deleteRes = await fetch(
             "/api/products", {
-                method: "DELETE",
-                body: JSON.stringify({id:id}),
-                headers: { 'Content-Type': 'application/json' }
-            })
+            method: "DELETE",
+            body: JSON.stringify({ id: id }),
+            headers: { 'Content-Type': 'application/json' }
+        })
 
         const deleteMessage = await deleteRes.json()
-            console.log(deleteMessage.message)
-        if(deleteMessage.message === "product was deleted") router.push('/products')
+        console.log(deleteMessage.message)
+        if (deleteMessage.message === "product was deleted") router.push('/products')
         else alert("There was an error deleting this product, please try again later :(")
     }
 
+
+    //     <div key={product.id}>
+
+    //     <Typography variant="h3">
+    //     {product.productName}
+    //     </Typography>
+    //     <Typography>
+    //     {product.price}
+    //     </Typography>
+
+    //     <button onClick={() => router.push(`/products/${product.id}`)}>CLICK FOR DETAILS</button>
+
+    //     <button onClick={() =>{handleDelete(product.id)}}> delete</button>
+    // </div>
+
+
+
+
     return (
         <>
-        <Typography variant="h1" component="p" color="primary">PRODUCTS PAGE</Typography>
+            <Typography variant="h1" component="p" color="primary">PRODUCTS PAGE</Typography>
+            <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
+                {products.map((product) => {
+                    return (
 
-            {products.map((product) => {
-                return (
-                    <div key={product.id}>
-                        <h3>{product.productName}</h3>
-                        <p>{product.price}</p>
-                        <button onClick={() => router.push(`/products/${product.id}`)}>CLICK FOR DETAILS</button>
 
-                        <button onClick={() =>{handleDelete(product.id)}}> delete</button>
-                    </div>
-                )
-            })}
+
+                        <Grid item xs={12} sm={6} md={4}  >
+
+
+                                <Item  class=" flex items-center justify-center">
+
+
+
+                                    <Card key={product.id} sx={{ maxWidth: 500 }}>
+                                        <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
+                                            <CardMedia
+                                                component="img"
+                                                height="140"
+                                                image="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
+                                                // {product.url}
+                                                alt="green iguana"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    {product.productName}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    ${product.price}.00
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+
+                                </Item>
+                        </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    )
+                })}
+            </Grid>
             {/* <button onClick={getAllProducts}>GET ALL PRODUCTS</button> */}
             <button onClick={() => { setFormVis(!formVis) }}>{!formVis ? 'NEW PRODUCT' : 'CANCEL'}</button>
             {formVis && <form onSubmit={handleSubmit}>
