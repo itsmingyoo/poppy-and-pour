@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { getAllProducts } from "../api/products"
 import { useRouter } from 'next/router'
+import { Typography } from "@mui/material"
 
 function Products(props) {
     const { products } = props
@@ -16,7 +17,7 @@ function Products(props) {
     // async function getAllProducts() {
     //     const response = await fetch('/api/products/')
     //     const products = await response.json()
-    //     console.log("PRODUCTS RECEIVED ON FRONTEND ", products)
+    //     console.log("PRODUCTS RECEIVED ON FRONTEND ", produ-cts)
     // }
 
     async function handleSubmit(e) {
@@ -64,7 +65,8 @@ function Products(props) {
 
     return (
         <>
-            <h1>PRODUCTS PAGE</h1>
+        <Typography variant="h1" component="p" color="primary">PRODUCTS PAGE</Typography>
+
             {products.map((product) => {
                 return (
                     <div key={product.id}>
