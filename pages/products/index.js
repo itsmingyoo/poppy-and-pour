@@ -89,40 +89,49 @@ function Products(props) {
     return (
         <>
             <Typography variant="h1" component="p" color="primary">PRODUCTS PAGE</Typography>
-            <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
+            <div class="p-10">
+
+
+            <Grid container
+  spacing={10}
+
+  alignItems="center"
+  justify="center"
+  >
                 {products.map((product) => {
                     return (
 
 
 
-                        <Grid item xs={12} sm={6} md={4}  >
+                        <Grid  item xs={12} sm={6} md={4}  >
 
 
-                                <Item  class=" flex items-center justify-center">
+                            <Item  >
 
 
 
-                                    <Card key={product.id} sx={{ maxWidth: 500 }}>
-                                        <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
-                                            <CardMedia
-                                                component="img"
-                                                height="140"
-                                                image="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
-                                                // {product.url}
-                                                alt="green iguana"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="div">
-                                                    {product.productName}
-                                                </Typography>
-                                                <Typography variant="body2" color="text.secondary">
-                                                    ${product.price}.00
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
+                                <Card key={product.id} >
+                                    <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
 
-                                </Item>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
+                                            // {product.url}
+                                            alt="green iguana"
+                                        />
+                                        <CardContent >
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                {product.productName}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                ${product.price}.00
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+
+                            </Item>
                         </Grid>
 
 
@@ -147,6 +156,7 @@ function Products(props) {
                     )
                 })}
             </Grid>
+            </div>
             {/* <button onClick={getAllProducts}>GET ALL PRODUCTS</button> */}
             <button onClick={() => { setFormVis(!formVis) }}>{!formVis ? 'NEW PRODUCT' : 'CANCEL'}</button>
             {formVis && <form onSubmit={handleSubmit}>
