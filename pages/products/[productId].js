@@ -32,13 +32,35 @@ function ProductDetails(props) {
     if (loading) return <p>Loading...</p>
 
     return (
-        <>
-            <div>product details</div>
-            <p>{productDetails.productName}</p>
-            <p>{productDetails.price}</p>
-            <p>{productDetails.description}</p>
-            <p>{productDetails.color}</p>
-            <img src={productDetails.photos[0].url}></img>
+        <div>
+            <div class="flex border border-red-500">
+                <div class='flex flex-col border border-blue-500 w-1/2'>
+                    <div class='flex border border-green-500 h-1/2'>
+                        <div class="w-1/6">SLIDER</div>
+                        <div class="w-5/6 border border-violet-500">
+                            {/* <img src='https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_4x3.jpg' class="w-100"/> */}
+                        </div>
+                    </div>
+                    <div class='border border-purple-500 h-1/2'>
+                        <button>Materials</button>
+                        <button>Dimensions</button>
+                        <button>Cart Information</button>
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <div>
+                        <p>{productDetails.productName}</p>
+                        <p>{productDetails.price}</p>
+                        <p>{productDetails.description}</p>
+                        <p>{productDetails.color}</p>
+                    </div>
+                    <button></button>
+                </div>
+            </div>
+
+
+
+            {/* <img src={productDetails.photos[0].url}></img>
             {productDetails && reviews && (
                 <SingleProductReviews reviews={initialReviews} />
             )}
@@ -49,8 +71,8 @@ function ProductDetails(props) {
                     currentProductDetails={productDetails}
                 />
             )}
-            <BasicRating />
-        </>
+            <BasicRating /> */}
+        </div>
     )
 }
 
