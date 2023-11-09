@@ -6,9 +6,11 @@ function HomePage() {
     <div>
       <h1>THE HOME PAGE</h1>
 
-      <Link href="/products"> OUR PRODUCTS (Leads to reviews) </Link>
+      <Link href="/products"> PRODUCTS (Leads to reviews) </Link>
       <br />
-      <Link href="/categories"> OUR CATEGORIES </Link>
+      <Link href="/categories"> CATEGORIES </Link>
+      <br />
+      <Link href="/shopify"> SHOPIFY PRODUCTS </Link>
       <br />
     </div>
   );
