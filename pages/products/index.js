@@ -88,7 +88,16 @@ function Products(props) {
 
     return (
         <>
-            <Typography variant="h1" component="p" color="primary">PRODUCTS PAGE</Typography>
+        <div class="text-center p-4">
+
+            <Typography variant="h5" component="h1" >Shop / products</Typography>
+            <div className="products-desc-holder">
+            <div className="products-desc" >
+
+            <Typography  component="h2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</Typography>
+            </div>
+            </div>
+        </div>
             <div class="p-10">
 
 
@@ -103,7 +112,7 @@ function Products(props) {
 
 
 
-                        <Grid  item xs={12} sm={6} md={4}  >
+                        <Grid  item xs={12} sm={6} md={4} lg={3}  >
 
 
                             <Item  >
