@@ -25,6 +25,12 @@ function Header() {
             <nav>
                 <ul>
                     {/* IF WE DONT HAVE AN ACTIVE SESSION (no authenticated user)... WE RENDER A LINK TO SIGN-IN/SIGN-UP FORM! */}
+                    <li>
+                        <Link href='/products'>Shop</Link>
+                    </li>
+                    <li>
+                        <Link href='/'>About us</Link>
+                    </li>
                     {!session && status === "unauthenticated" && (
                         <li>
                             <Link href="/auth">Login</Link>

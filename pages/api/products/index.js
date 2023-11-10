@@ -49,7 +49,11 @@ async function handler(req, res) {
 
 export async function getAllProducts() {
   try {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      include: {
+        photos: true,
+      }
+    });
     return products;
   } catch (error) {
     console.error(error);
