@@ -79,11 +79,7 @@ function Item({ product }) {
     // console.log("product", product.photos[0].url);
     return (
         <Paper>
-            <img
-                src={product.photos[0].url}
-                alt={product.name}
-                className="h-96 w-full"
-            />
+            <img src="#" alt={product.name} className="h-96 w-full" />
             <h2>{product.name}</h2>
         </Paper>
     )
