@@ -32,6 +32,7 @@ async function createUser(email, password, firstName, lastName) {
 }
 
 function AuthForm() {
+    console.log("we're in /auth")
     const [isLogin, setIsLogin] = useState(true)
     const router = useRouter()
 

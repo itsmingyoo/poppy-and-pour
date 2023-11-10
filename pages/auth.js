@@ -7,6 +7,7 @@ function AuthPage() {
 
 export async function getServerSideProps(context) {
     const session = await getSession({ req: context.req })
+    console.log('session in AuthPage /auth')
     // if active session, redirect to home page
     if (session) {
         return {
