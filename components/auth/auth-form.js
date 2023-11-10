@@ -124,6 +124,10 @@ function AuthForm() {
         console.log('ERRORS ---->', errors)
     }
 
+    const handleGoogleSignIn = () => {
+        signIn('google') // Use the correct provider, e.g., 'google', 'github', etc.
+    }
+
     return (
         <section className={classes.auth}>
             <form onSubmit={submitHandler}>
@@ -171,6 +175,40 @@ function AuthForm() {
                             : 'Login with existing account'}
                     </button>
                 </div>
+
+                <button
+                    type="submit"
+                    className="button"
+                    style={{
+                        '--provider-bg': '#fff',
+                        '--provider-dark-bg': '#fff',
+                        '--provider-color': '#000',
+                        '--provider-dark-color': '#000',
+                        '--provider-bg-hover': 'rgba(255, 255, 255, 0.8)',
+                        '--provider-dark-bg-hover': 'rgba(255, 255, 255, 0.8)',
+                        '--darkreader-bg--provider-bg': '#181a1b',
+                        '--darkreader-bg--provider-dark-bg': '#181a1b',
+                        '--darkreader-text--provider-color': '#e8e6e3',
+                        '--darkreader-text--provider-dark-color': '#e8e6e3',
+                        '--darkreader-bg--provider-bg-hover':
+                            'rgba(24, 26, 27, 0.8)',
+                        '--darkreader-bg--provider-dark-bg-hover':
+                            'rgba(24, 26, 27, 0.8)',
+                    }}
+                    onClick={handleGoogleSignIn}
+                >
+                    <div style={{ display: 'flex' }}>
+                        <img
+                            loading="lazy"
+                            height="24"
+                            width="24"
+                            id="provider-logo-dark"
+                            src="https://authjs.dev/img/providers/google.svg"
+                            alt="Dark Google Logo"
+                        />
+                        <span>Sign in with Google</span>
+                    </div>
+                </button>
             </form>
         </section>
     )
