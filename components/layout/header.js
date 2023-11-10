@@ -20,7 +20,7 @@ function Header() {
     return (
         <header className={classes.header}>
             <Link href="/">
-                <div className={classes.logo}>"Poppy, Not Bitchy: Sippin' Style, Not Sass."</div>
+                <div className={classes.logo}>"Poppy and Pour"</div>
             </Link>
             <nav>
                 <ul>
