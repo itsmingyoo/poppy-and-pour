@@ -7,10 +7,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '../../../server/db/client'
-const { verifyPassword } = require('../../../lib/auth')
-
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+const { verifyPassword, hashPassword } = require('../../../lib/auth')
 
 // when we export NextAuth function, we also call it and configure it. By configuring this function, it sets up
 // auth api routes for us to use... such as configuring our log-in
@@ -49,22 +46,9 @@ export default NextAuth({
                 return user
             },
         }),
-        // Google auth
-        // GoogleProvider({
-        //     clientId: process.env.GOOGLE_CLIENT_ID,
-        //     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        //     profile(profile) {
-        //         return {
-        //             // Return all the profile information you need.
-        //             // The only truly required field is `id`
-        //             // to be able identify the account when added to a database
-        //         }
-        //     },
-        // }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            // allowDangerousEmailAccountLinking: true,
         }),
     ],
     callbacks: {
@@ -94,20 +78,29 @@ export default NextAuth({
         },
         async signIn({ account, profile }) {
             if (!profile?.email) throw new Error('No profile')
+            console.log('account', account)
+            console.log('profile', profile)
 
-            await prisma.user.upsert({
-                where: {
-                    email: profile.email,
-                },
-                create: {
-                    email: profile.email,
-                    firstName: profile.name,
-                },
-                update: {
-                    firstName: profile.name,
-                },
-            })
-            return true
+            try {
+                await prisma.user.upsert({
+                    where: {
+                        email: profile.email,
+                    },
+                    create: {
+                        email: profile.email,
+                        firstName: profile.name,
+                        hashedPassword: await hashPassword('shut the fuck up'),
+                        isAdmin: false,
+                        isBanned: false,
+                    },
+                    update: {
+                        firstName: profile.name,
+                    },
+                })
+                return true
+            } catch (e) {
+                console.log(e)
+            }
         },
     },
 })
