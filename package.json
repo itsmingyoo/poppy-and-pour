@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && npm run seed && next build",
-    "start": "next start",
-    "lint": "next lint",
     "seed": "node seed/seed-all.js",
     "unseed": "node seed/unseed.js",
-    "cleanup": "lsof -ti :3000 | xargs kill -9"
+    "cleanup": "lsof -ti :3000 | xargs kill -9",
+    "build": "prisma generate && prisma migrate deploy && npm run seed && next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10",
+    "nodemon": "^3.0.1",
     "postcss": "^8",
     "prisma": "^5.5.2",
     "tailwindcss": "^3"
