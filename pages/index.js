@@ -17,7 +17,7 @@ function HomePage(props) {
     return (
         <div className="container mx-auto">
             <h1 className="text-4xl mb-4 text-center">THE HOME PAGE</h1>
-            {/* <Link href="/shopify"> SHOPIFY PRODUCTS </Link> */}
+            <Link href="/samples"> SAMPLE PRODUCTS </Link>
             <br />
             <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
             <br />
