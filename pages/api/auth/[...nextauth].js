@@ -89,7 +89,8 @@ export default NextAuth({
                     create: {
                         email: profile.email,
                         firstName: profile.name,
-                        hashedPassword: await hashPassword('shut the fuck up'),
+                        // hashedPassword: await hashPassword('shut the fuck up'),
+                        hashedPassword: account.id_token,
                         isAdmin: false,
                         isBanned: false,
                     },
