@@ -20,11 +20,17 @@ function Header() {
     return (
         <header className={classes.header}>
             <Link href="/">
-                <div className={classes.logo}>"Poppy, Not Bitchy: Sippin' Style, Not Sass."</div>
+                <div className={classes.logo}>"Poppy and Pour"</div>
             </Link>
             <nav>
                 <ul>
                     {/* IF WE DONT HAVE AN ACTIVE SESSION (no authenticated user)... WE RENDER A LINK TO SIGN-IN/SIGN-UP FORM! */}
+                    <li>
+                        <Link href='/products'>Shop</Link>
+                    </li>
+                    <li>
+                        <Link href='/'>About us</Link>
+                    </li>
                     {!session && status === "unauthenticated" && (
                         <li>
                             <Link href="/auth">Login</Link>

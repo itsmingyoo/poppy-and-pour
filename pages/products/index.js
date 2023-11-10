@@ -1,6 +1,12 @@
 import { useState } from "react"
 import { getAllProducts } from "../api/products"
 import { useRouter } from 'next/router'
+import { Typography, CardActionArea } from "@mui/material"
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid'
+import Item from '@mui/material/Grid'
 
 function Products(props) {
     const { products } = props
@@ -16,10 +22,10 @@ function Products(props) {
     // async function getAllProducts() {
     //     const response = await fetch('/api/products/')
     //     const products = await response.json()
-    //     console.log("PRODUCTS RECEIVED ON FRONTEND ", products)
+    //     console.log("PRODUCTS RECEIVED ON FRONTEND ", produ-cts)
     // }
 
-    async function handleSumbit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
 
@@ -43,25 +49,126 @@ function Products(props) {
 
         const productData = await response.json()
 
-        if(productData.id)router.push(`/products/${productData.id}`)
+        if (productData.id) router.push(`/products/${productData.id}`)
 
     }
 
+    async function handleDelete(id) {
+
+        const deleteRes = await fetch(
+            "/api/products", {
+            method: "DELETE",
+            body: JSON.stringify({ id: id }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        const deleteMessage = await deleteRes.json()
+        console.log(deleteMessage.message)
+        if (deleteMessage.message === "product was deleted") router.push('/products')
+        else alert("There was an error deleting this product, please try again later :(")
+    }
+
+
+    //     <div key={product.id}>
+
+    //     <Typography variant="h3">
+    //     {product.productName}
+    //     </Typography>
+    //     <Typography>
+    //     {product.price}
+    //     </Typography>
+
+    //     <button onClick={() => router.push(`/products/${product.id}`)}>CLICK FOR DETAILS</button>
+
+    //     <button onClick={() =>{handleDelete(product.id)}}> delete</button>
+    // </div>
+
+
+
+
     return (
         <>
-            <h1>PRODUCTS PAGE</h1>
-            {products.map((product) => {
-                return (
-                    <div key={product.id}>
-                        <h3>{product.productName}</h3>
-                        <p>{product.price}</p>
-                        <button onClick={() => router.push(`/products/${product.id}`)}>CLICK FOR DETAILS</button>
-                    </div>
-                )
-            })}
+        <div class="text-center p-4">
+
+            <Typography variant="h5" component="h1" >Shop / products</Typography>
+            <div className="products-desc-holder">
+            <div className="products-desc" >
+
+            <Typography  component="h2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</Typography>
+            </div>
+            </div>
+        </div>
+            <div class="p-10">
+
+
+            <Grid container
+  spacing={10}
+
+  alignItems="center"
+  justify="center"
+  >
+                {products.map((product) => {
+                    return (
+
+
+
+                        <Grid  item xs={12} sm={6} md={4} lg={3}  >
+
+
+                            <Item  >
+
+
+
+                                <Card key={product.id} >
+                                    <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
+
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
+                                            // {product.url}
+                                            alt="green iguana"
+                                        />
+                                        <CardContent >
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                {product.productName}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                ${product.price}.00
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+
+                            </Item>
+                        </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    )
+                })}
+            </Grid>
+            </div>
             {/* <button onClick={getAllProducts}>GET ALL PRODUCTS</button> */}
             <button onClick={() => { setFormVis(!formVis) }}>{!formVis ? 'NEW PRODUCT' : 'CANCEL'}</button>
-            {formVis && <form onSubmit={handleSumbit}>
+            {formVis && <form onSubmit={handleSubmit}>
                 <input type='string' placeholder='Product Name' value={productName} onChange={(e) => setProductName(e.target.value)} />
                 <select value={category} onChange={(e) => setCategory(e.target.value === 'Category' ? null : e.target.value)}>
                     <option value={null}>Category</option>

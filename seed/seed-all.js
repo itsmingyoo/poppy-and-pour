@@ -36,10 +36,10 @@ const { hashPassword } = require('../lib/auth')
             // photos
             await prisma.photo.createMany({
                 data: [
-                    {url: 'https://example.png', productId: 1},
-                    {url: 'https://image1.png', productId: 2},
-                    {url: 'https://image2.png', productId: 3},
-                    {url: 'https://image3.png', productId: 4},
+                    {url: 'https://i.imgur.com/g3D5jNz.jpeg', productId: 1},
+                    {url: 'https://i.imgur.com/MQHYB.jpeg', productId: 2},
+                    {url: 'https://i.imgur.com/3bOE2E6.jpeg', productId: 3},
+                    {url: 'https://i.imgur.com/b5kaca0.jpeg', productId: 4},
                 ],
                 skipDuplicates: true
             })
@@ -65,7 +65,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 2,
                     batchId: 'uuid124',
                     quantity: 3,
-                    orderDate: new Date(),
+                    orderDate: new Date().toISOString(),
                     trackingNumber: '2345678901',
                     status: 'PROCESSING',
                     total: 45
@@ -75,7 +75,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 3,
                     batchId: 'uuid125',
                     quantity: 2,
-                    orderDate: new Date(),
+                    orderDate:new Date().toISOString(),
                     trackingNumber: '3456789012',
                     status: 'DELIVERING',
                     total: 30
@@ -85,7 +85,7 @@ const { hashPassword } = require('../lib/auth')
                     productId: 4,
                     batchId: 'uuid126',
                     quantity: 1,
-                    orderDate: new Date(),
+                    orderDate: new Date().toISOString(),
                     trackingNumber: '4567890123',
                     status: 'COMPLETED',
                     total: 15
