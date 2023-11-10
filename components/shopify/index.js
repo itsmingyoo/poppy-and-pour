@@ -6,7 +6,7 @@ function GetShopifyProducts({ products }) {
 
   return (
     <div>
-      <h2>Shopify Products</h2>
+      <h2>Sample Products</h2>
       {/* {error && <p>Error: {error}</p>} */}
       <ul>
         {allProducts?.length > 0 ? (
