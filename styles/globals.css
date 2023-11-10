@@ -29,3 +29,14 @@ button {
 .errors {
   color: red;
 }
+
+.products-desc-holder{
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.products-desc {
+width: 50%;
+
+}

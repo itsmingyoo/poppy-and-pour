@@ -1,9 +1,12 @@
+
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { getAllProducts } from "./api/products";
 import Carousel from "react-material-ui-carousel";
 import { Paper, Button } from "@mui/material";
 import Link from "next/link";
+import { getUserSession } from '@/lib/auth'
+import { useEffect } from 'react'
 
 function HomePage(props) {
   const { products } = props;
@@ -15,6 +18,10 @@ function HomePage(props) {
   return (
     <div className="container mx-auto">
       <h1 className="text-4xl mb-4 text-center">THE HOME PAGE</h1>
+      <Link href="/shopify"> SHOPIFY PRODUCTS </Link>
+      <br />
+      <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
+      <br />
 
       <div className="mx-auto w-3/5">
         <Carousel autoPlay={true} animation="slide">
