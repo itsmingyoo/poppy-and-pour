@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { BasicRatingReadOnly } from "../rating/rating";
 
 function UserReview(props) {
   const { review } = props;
@@ -107,8 +108,9 @@ function UserReview(props) {
         ) : (
           // Render review details when isEditing is false
           <>
-            <p>{editedReview}</p>
-            <p>RATING: {editedRating}</p>
+            <BasicRatingReadOnly rating={editedRating}/>
+            <p className="mb-3 mt-2">Reviewed By {review.userFirstName} {review.userLastName}</p>
+            <p className="mb-3">{editedReview}</p>
           </>
         )}
         {session && review.userId === userId && (

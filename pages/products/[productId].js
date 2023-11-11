@@ -8,7 +8,18 @@ import NewReview from '@/components/reviews/NewReview'
 import { useSession } from 'next-auth/react'
 import { render } from 'react-dom'
 import EditProductForm from '@/components/products/EditProductForm'
-import BasicRating from '@/components/rating/rating'
+import { BasicRatingReadOnly } from '@/components/rating/rating'
+
+import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+
+import VerticalButtons from '@/components/ui/VerticalButtons'
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+import EtsyReviewStack from '@/components/ui/EtsyReviewStack'
+
 
 function ProductDetails(props) {
     const { productDetails } = props
@@ -33,32 +44,52 @@ function ProductDetails(props) {
 
     return (
         <div>
-            <div class="flex border border-red-500">
-                <div class='flex flex-col border border-blue-500 w-1/2'>
-                    <div class='flex border border-green-500 h-1/2'>
-                        <div class="w-1/6">SLIDER</div>
-                        <div class="w-5/6 border border-violet-500">
-                            {/* <img src='https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_4x3.jpg' class="w-100"/> */}
+            <div class="flex w-full h-full mt-5">
+                <div class="flex flex-col flex-1">
+                    <Container maxWidth='false' disableGutters sx={{ maxHeight: "750px", padding: "0px", height: '100%', width: '100%', display: 'flex'}}>
+                        <VerticalButtons />
+                        <div className='max-h-750px flex-1'>
+                            <img src={productDetails.photos[0].url} className='w-full h-full object-fill border border-black border-1' />
                         </div>
-                    </div>
-                    <div class='border border-purple-500 h-1/2'>
-                        <button>Materials</button>
-                        <button>Dimensions</button>
-                        <button>Cart Information</button>
+                    </Container>
+                    <div class="border h-1/2">
+                        <Stack spacing={2} direction="column" sx={{ marginTop: "12px"}}>
+                            <Button variant="contained" sx={{ border: '1px solid black'}}>Materials</Button>
+                            <Button variant="contained" sx={{ border: '1px solid black'}}>Dimensions</Button>
+                            <Button variant="contained" sx={{ border: '1px solid black'}}>Care Information</Button>
+                        </Stack>
                     </div>
                 </div>
-                <div class="w-1/2">
-                    <div>
-                        <p>{productDetails.productName}</p>
-                        <p>{productDetails.price}</p>
-                        <p>{productDetails.description}</p>
-                        <p>{productDetails.color}</p>
+                <div class="flex flex-1 justify-center">
+                    <div className='flex flex-col items-center flex-1 h-full justify-between'>
+                        <h2 className="text-3xl">{productDetails.productName}</h2>
+                        <h2 className="text-3xl">${productDetails.price}</h2>
+                        <h2 className="text-3xl">Rating</h2>
+                        <h2 className="text-3xl">{productDetails.description}</h2>
+                        <h2 className="text-3xl">{productDetails.color}</h2>
+                        <h2 className="text-3xl">Quantity</h2>
+                        <Button variant="contained" sx={{height: "8%", width: '40%', border: '1px solid black'}}>Add To Cart</Button>
                     </div>
-                    <button></button>
                 </div>
             </div>
 
+            {/* Reviews Heading */}
+            <div className='flex items-center mt-12 mb-6'>
+                <h2 className='text-center text-4xl mr-5'>Reviews</h2>
+                <BasicRatingReadOnly />
+            </div>
 
+            {/* Review Mapping */}
+            <div className='flex w-full h-full'>
+                <div className='flex flex-col flex-1'>
+                    {productDetails && reviews && (
+                        <SingleProductReviews reviews={initialReviews} />
+                    )}
+                </div>
+                <div className='flex flex-1 h-full justify-center'>
+                    <EtsyReviewStack />
+                </div>
+            </div>
 
             {/* <img src={productDetails.photos[0].url}></img>
             {productDetails && reviews && (

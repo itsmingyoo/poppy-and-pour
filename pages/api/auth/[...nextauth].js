@@ -6,6 +6,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
+import authorize from '@/lib/authorize'
 import { prisma } from '../../../server/db/client'
 const { verifyPassword, hashPassword } = require('../../../lib/auth')
 
@@ -18,33 +19,7 @@ export default NextAuth({
     providers: [
         CredentialsProvider({
             // this authorize function gets automatically called when we use the signIn() function in the login/signup form
-            async authorize(credentials) {
-                // search for user email in the DB
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
-                })
-
-                if (!user) {
-                    await prisma.$disconnect()
-                    throw new Error('No user found!')
-                }
-
-                // Verify the provided password matches the stored hashed password
-                const isValid = await verifyPassword(
-                    credentials.password,
-                    user.hashedPassword
-                )
-                if (!isValid) {
-                    await prisma.$disconnect()
-                    throw new Error('Could not log you in!')
-                }
-
-                console.log('LOGGED IN USER IN AUTH', user)
-
-                await prisma.$disconnect()
-
-                return user
-            },
+            authorize
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -76,31 +51,35 @@ export default NextAuth({
             // console.log("THIS IS THE SMUGGLED TOKEN=============", token);
             return token
         },
-        async signIn({ account, profile }) {
-            if (!profile?.email) throw new Error('No profile')
-            console.log('account', account)
-            console.log('profile', profile)
+        async signIn({ account, profile, credentials }) {
+            if( account.provider === 'google' ) {
+                if (!profile?.email) throw new Error('No profile')
+                console.log('account', account)
+                console.log('profile', profile)
 
-            try {
-                await prisma.user.upsert({
-                    where: {
-                        email: profile.email,
-                    },
-                    create: {
-                        email: profile.email,
-                        firstName: profile.name,
-                        // hashedPassword: await hashPassword('shut the fuck up'),
-                        hashedPassword: account.id_token,
-                        isAdmin: false,
-                        isBanned: false,
-                    },
-                    update: {
-                        firstName: profile.name,
-                    },
-                })
-                return true
-            } catch (e) {
-                console.log(e)
+                try {
+                    await prisma.user.upsert({
+                        where: {
+                            email: profile.email,
+                        },
+                        create: {
+                            email: profile.email,
+                            firstName: profile.name,
+                            // hashedPassword: await hashPassword('shut the fuck up'),
+                            hashedPassword: account.id_token,
+                            isAdmin: false,
+                            isBanned: false,
+                        },
+                        update: {
+                            firstName: profile.name,
+                        },
+                    })
+                    return true
+                } catch (e) {
+                    console.log(e)
+                }
+            } else {
+                return await authorize(credentials)
             }
         },
     },
