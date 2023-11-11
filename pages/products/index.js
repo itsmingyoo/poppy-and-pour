@@ -88,7 +88,7 @@ function Products(props) {
 
     return (
         <>
-        <div class="text-center p-4">
+        <div className="text-center p-4">
 
             <Typography variant="h5" component="h1" >Shop / products</Typography>
             <div className="products-desc-holder">
@@ -98,12 +98,11 @@ function Products(props) {
             </div>
             </div>
         </div>
-            <div class="p-10">
+            <div className="p-10">
 
 
             <Grid container
   spacing={10}
-
   alignItems="center"
   justify="center"
   >
@@ -112,14 +111,14 @@ function Products(props) {
 
 
 
-                        <Grid  item xs={12} sm={6} md={4} lg={3}  >
+                        <Grid  item xs={12} sm={6} md={4} lg={3} key={product.id}  >
 
 
-                            <Item  >
+                            <Item >
 
 
 
-                                <Card key={product.id} >
+                                <Card >
                                     <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
 
                                         <CardMedia
@@ -128,8 +127,9 @@ function Products(props) {
                                             image="https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:eco%2Cw_1200/MTk2NzY3MjA5ODc0MjY5ODI2/top-10-cutest-cat-photos-of-all-time.jpg"
                                             // {product.url}
                                             alt="green iguana"
+                                            key={product.id}
                                         />
-                                        <CardContent >
+                                        <CardContent key={product.id}>
                                             <Typography gutterBottom variant="h5" component="div">
                                                 {product.productName}
                                             </Typography>
