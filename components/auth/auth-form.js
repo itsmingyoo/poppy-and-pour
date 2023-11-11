@@ -62,6 +62,7 @@ function AuthForm() {
 
     async function submitHandler(e) {
         e.preventDefault()
+        console.log("TRYING TO DO WITH CREDENTIALS")
 
         // optional ---> Add Frontend Validations before making the fetch call
 
@@ -124,8 +125,8 @@ function AuthForm() {
         console.log('ERRORS ---->', errors)
     }
 
-    const handleGoogleSignIn = () => {
-        signIn('google') // Use the correct provider, e.g., 'google', 'github', etc.
+    const handleGoogleSignIn = async () => {
+        await signIn('google') // Use the correct provider, e.g., 'google', 'github', etc.
     }
 
     return (
@@ -177,7 +178,6 @@ function AuthForm() {
                 </div>
 
                 <button
-                    type="submit"
                     className="button"
                     style={{
                         '--provider-bg': '#fff',

@@ -3,7 +3,23 @@ import Box from '@mui/material/Box'
 import Rating from '@mui/material/Rating'
 import Typography from '@mui/material/Typography'
 
-export default function BasicRating() {
+export function BasicRatingReadOnly({rating}) {
+// if you want to display a review rating, prop it in
+// this is also being used in the rating header under product details
+
+    return (
+        <Box
+            sx={{
+                '& > legend': { mt: 2 }, marginTop: '10px'
+            }}
+        >
+            <Rating name="read-only" size='large' value={rating ? rating : 5} readOnly />
+        </Box>
+    )
+}
+
+
+export function BasicRatingRate() {
     const [value, setValue] = useState(0)
 
     return (
