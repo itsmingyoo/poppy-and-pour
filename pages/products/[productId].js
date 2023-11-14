@@ -27,11 +27,17 @@ function ProductDetails(props) {
     const [reviews, setReviews] = useState(initialReviews)
     const [loading, setLoading] = useState(true)
 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
     const { data: session } = useSession()
 
     const updateReviews = (newReview) => {
         setReviews([...reviews, newReview])
     }
+
+    const handleImageChange = (index) => {
+        setCurrentImageIndex(index);
+    };
 
     // if you want to avoid adding '?'s in the jsx return
     useEffect(() => {
@@ -44,23 +50,21 @@ function ProductDetails(props) {
 
     return (
         <div>
-            <div class="flex w-full h-full mt-5">
-                <div class="flex flex-col flex-1">
-                    <Container maxWidth='false' disableGutters sx={{ maxHeight: "750px", padding: "0px", height: '100%', width: '100%', display: 'flex'}}>
-                        <VerticalButtons />
-                        <div className='max-h-750px flex-1'>
-                            <img src={productDetails.photos[0].url} className='w-full h-full object-fill border border-black border-1' />
+            <div className="flex w-full h-full mt-5">
+                <div className="flex w-1/2">
+                    <Container maxWidth="false">
+                        <div className='max-h-96 min-h-96 max-h-96 flex-1 flex'>
+                            <VerticalButtons currentImageIndex={currentImageIndex} onChange={handleImageChange} productDetails={productDetails} />
+                            <img src={productDetails.photos[currentImageIndex].url} className='w-full h-full max-w-lg max-h-80 object-fill border border-black border-1' />
                         </div>
-                    </Container>
-                    <div class="border h-1/2">
-                        <Stack spacing={2} direction="column" sx={{ marginTop: "12px"}}>
+                        <Stack maxWidth="sm" spacing={2} direction="column" sx={{ marginTop: "12px", minWidth: '384px'}}>
                             <Button variant="contained" sx={{ border: '1px solid black'}}>Materials</Button>
                             <Button variant="contained" sx={{ border: '1px solid black'}}>Dimensions</Button>
                             <Button variant="contained" sx={{ border: '1px solid black'}}>Care Information</Button>
                         </Stack>
-                    </div>
+                    </Container>
                 </div>
-                <div class="flex flex-1 justify-center">
+                <div class="flex w-1/2 justify-center">
                     <div className='flex flex-col items-center flex-1 h-full justify-between'>
                         <h2 className="text-3xl">{productDetails.productName}</h2>
                         <h2 className="text-3xl">${productDetails.price}</h2>

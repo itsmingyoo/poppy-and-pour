@@ -63,16 +63,17 @@ export async function editProductDetails(productId, productDetails, newPhotoUrl)
       data: productDetails
     });
 
-    if(newPhotoUrl) {
-      const updatedPhoto = await prisma.photo.update({
-        where: {
-          productId: parseInt(productId),
-        },
-        data: {
-          url: newPhotoUrl.url
-        },
-      })
-    }
+    // THIS IS FOR UPDATING A PHOTO
+    // if(newPhotoUrl) {
+    //   const updatedPhoto = await prisma.photo.update({
+    //     where: {
+    //       ...,
+    //     },
+    //     data: {
+    //       url: newPhotoUrl.url
+    //     },
+    //   })
+    // }
 
     return updatedProduct;
   } catch (e) {
