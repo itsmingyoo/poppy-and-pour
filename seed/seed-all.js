@@ -40,6 +40,9 @@ const { hashPassword } = require('../lib/auth')
                     {url: 'https://i.imgur.com/MQHYB.jpeg', productId: 2},
                     {url: 'https://i.imgur.com/3bOE2E6.jpeg', productId: 3},
                     {url: 'https://i.imgur.com/b5kaca0.jpeg', productId: 4},
+                    {url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1200px-Giant_Panda_2004-03-2.jpg', productId: 1},
+                    {url: 'https://s28151.pcdn.co/wp-content/uploads/sites/2/2022/03/Coyote-animal-sentience-research.jpg', productId: 1},
+                    {url: 'https://c02.purpledshub.com/uploads/sites/62/2022/10/Are-any-animals-bulletproof-7271f9d.jpg', productId: 1}
                 ],
                 skipDuplicates: true
             })

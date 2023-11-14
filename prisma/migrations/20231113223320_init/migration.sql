@@ -79,7 +79,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE INDEX "Order_batchId_idx" ON "Order"("batchId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Photo_productId_key" ON "Photo"("productId");
+CREATE UNIQUE INDEX "Photo_url_key" ON "Photo"("url");
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

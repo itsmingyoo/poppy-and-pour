@@ -5,16 +5,26 @@ import Box from '@mui/material/Box'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
-const buttons = [
-    <Button key="one" className='border-10' sx={{height: "50%", borderRadius: '0px', width: "70px", borderBottom: "0px", marginRight: '10px'}}>
-        <KeyboardDoubleArrowUpIcon />
-    </Button>,
-    <Button key="three" sx={{height: "50%", borderRadius: '0px', borderBottomColor: 'transparent',  marginRight: '10px'}}>
-        <KeyboardDoubleArrowDownIcon />
-    </Button>,
-]
+export default function VerticalButtons({currentImageIndex, onChange, productDetails}) {
+    const handleButtonClick = (direction) => {
+        if (direction === 'down') {
+            onChange(Math.max(currentImageIndex - 1, 0));
+        } else {
+            onChange(Math.min(currentImageIndex + 1, productDetails.photos.length - 1));
+        }
+    };
 
-export default function VerticalButtons() {
+
+    const buttons = [
+        <Button onClick={() => handleButtonClick('up')} key="one" className='border-10' sx={{height: "50%", borderRadius: '0px', width: "70px", borderBottom: "0px", marginRight: '10px'}}>
+            <KeyboardDoubleArrowUpIcon />
+        </Button>,
+        <Button onClick={() => handleButtonClick('down')} key="three" sx={{height: "50%", borderRadius: '0px', borderBottomColor: 'transparent',  marginRight: '10px'}}>
+            <KeyboardDoubleArrowDownIcon />
+        </Button>,
+    ]
+
+
     return (
         <Box
             sx={{
