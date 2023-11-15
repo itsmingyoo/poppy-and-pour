@@ -2,10 +2,11 @@ import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { getAllProducts } from './api/products'
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
+import { Paper, Button, Typography } from '@mui/material'
 import Link from 'next/link'
 import { getUserSession } from '@/lib/auth'
 import { useEffect } from 'react'
+
 
 function HomePage(props) {
     const { products } = props
@@ -37,7 +38,8 @@ function HomePage(props) {
     // console.log(products);
     return (
         <div className="container mx-auto">
-            <h1 className="text-4xl mb-4 text-center">THE HOME PAGE</h1>
+            <Typography variant='h1' className="text-4xl mb-4 text-center">THE HOME PAGE</Typography>
+
             <Link href="/sample"> SAMPLE PRODUCTS </Link>
             <br />
             <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
@@ -59,13 +61,15 @@ function HomePage(props) {
                         onClick={() => handleCategory('Cups')}
                         className="catagory-image w-3/5"
                     />
-                    <h2 className="text-2xl ">Cups</h2>
+                    <Typography variant='h3' component="h2" >Cups</Typography>
+
                     <div></div>
                 </div>
 
                 <div className=" flex justify-between items-center justify-center mt-16">
                     <div></div>
-                    <h2 className="text-2xl">Plates</h2>
+                    <Typography variant='h3' component="h2" >Plates</Typography>
+
                     <img
                         src="https://i.imgur.com/sk8geRz.png"
                         alt="Plates"
@@ -81,13 +85,15 @@ function HomePage(props) {
                         onClick={() => handleCategory('Mugs')}
                         className="catagory-image w-3/5"
                     />
-                    <h2 className="text-2xl">Mugs</h2>
+                    <Typography variant='h3' component="h2" >Mugs</Typography>
+
                     <div></div>
                 </div>
 
                 <div className=" flex justify-between items-center justify-center   mt-16">
                     <div></div>
-                    <h2 className="text-2xl">Bowls</h2>
+                    <Typography variant='h3' component="h2" >Bowls</Typography>
+                   
                     <img
                         src="https://i.imgur.com/h84lOXL.png"
                         alt="Bowls"
