@@ -13,7 +13,7 @@ import { BasicRatingReadOnly } from '@/components/rating/rating'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-
+import {Typography } from '@mui/material'
 import VerticalButtons from '@/components/ui/VerticalButtons'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -66,12 +66,12 @@ function ProductDetails(props) {
                 </div>
                 <div class="flex w-1/2 justify-center">
                     <div className='flex flex-col items-center flex-1 h-full justify-between'>
-                        <h2 className="text-3xl">{productDetails.productName}</h2>
-                        <h2 className="text-3xl">${productDetails.price}</h2>
-                        <h2 className="text-3xl">Rating</h2>
-                        <h2 className="text-3xl">{productDetails.description}</h2>
-                        <h2 className="text-3xl">{productDetails.color}</h2>
-                        <h2 className="text-3xl">Quantity</h2>
+                        <Typography variant='h4' component="h2" className='text-3x1'>{productDetails.productName}</Typography>
+                        <Typography  variant='h4' component="h2" className='text-3x1'>${productDetails.price}</Typography>
+                        <Typography  variant='h4' component="h2" className='text-3x1'>Rating</Typography>
+                        <Typography  variant='h4' component="h2" className='text-3x1'>{productDetails.description}</Typography>
+                        <Typography  variant='h4' component="h2" className='text-3x1'>{productDetails.color}</Typography>
+                        <Typography  variant='h4' component="h2" className='text-3x1'>Quantity</Typography>
                         <Button variant="contained" sx={{height: "8%", width: '40%', border: '1px solid black'}}>Add To Cart</Button>
                     </div>
                 </div>
@@ -79,7 +79,8 @@ function ProductDetails(props) {
 
             {/* Reviews Heading */}
             <div className='flex items-center mt-12 mb-6'>
-                <h2 className='text-center text-4xl mr-5 ml-6'>Reviews</h2>
+                <Typography variant='h3' className='text-center text-4xl mr-5 ml-6'>Reviews</Typography>
+                
                 <BasicRatingReadOnly />
             </div>
 
