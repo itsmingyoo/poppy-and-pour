@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   //   dark = false
   const theme = createTheme({
+    
     palette: {
       primary: {
         main: "#EBA392"
