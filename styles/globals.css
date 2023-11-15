@@ -30,13 +30,31 @@ button {
   color: red;
 }
 
-.products-desc-holder{
+
+/*! HOME PAGE */
+
+.hompage-slider {
+  max-width: 1680px;
+  /* min-height: 800px; */
+}
+
+.homepage-slider-images {
+  height: 16000px;
+}
+
+
+
+
+
+
+/*! PRODUCTS LIST PAGE */
+.products-desc-holder {
   display: flex;
   margin-top: 20px;
   justify-content: center;
 }
 
 .products-desc {
-width: 50%;
+  width: 50%;
 
 }

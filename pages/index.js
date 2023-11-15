@@ -43,8 +43,8 @@ function HomePage(props) {
             <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
             <br />
 
-            <div className="mx-auto w-3/5">
-                <Carousel autoPlay={true} animation="slide">
+            <div className="mx-auto hompage-slider">
+                <Carousel autoPlay={true} animation="slide" >
                     {products.map((product) => (
                         <Item key={product.id} product={product} />
                     ))}
