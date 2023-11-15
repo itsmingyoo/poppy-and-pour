@@ -46,49 +46,53 @@ function HomePage(props) {
             <div className="mx-auto hompage-slider">
                 <Carousel autoPlay={true} animation="slide" >
                     {products.map((product) => (
-                        <Item key={product.id} product={product} />
+                        <Item className='homepage-slider-images' key={product.id} product={product} />
                     ))}
                 </Carousel>
             </div>
 
-            <div className="flex flex-col mt-8">
-                <div className=" flex justify-between items-center justify-center">
+            <div className="flex flex-col mt-8 ">
+                <div className=" flex justify-between items-center justify-center text-center mt-16">
                     <img
                         src="https://i.imgur.com/sPlvrEo.png"
                         alt="Cups"
                         onClick={() => handleCategory('Cups')}
-                        className="h-96 w-3/5"
+                        className="catagory-image w-3/5"
                     />
-                    <h2 className="text-2xl">Cups</h2>
+                    <h2 className="text-2xl ">Cups</h2>
+                    <div></div>
                 </div>
 
-                <div className=" flex justify-between items-center justify-center">
+                <div className=" flex justify-between items-center justify-center mt-16">
+                    <div></div>
                     <h2 className="text-2xl">Plates</h2>
                     <img
                         src="https://i.imgur.com/sk8geRz.png"
                         alt="Plates"
                         onClick={() => handleCategory('Plates')}
-                        className="h-96 w-3/5"
+                        className="catagory-image w-3/5"
                     />
                 </div>
 
-                <div className=" flex justify-between items-center justify-center">
+                <div className=" flex justify-between items-center justify-center mt-16">
                     <img
                         src="https://i.imgur.com/7LkNLex.png"
                         alt="Mugs"
                         onClick={() => handleCategory('Mugs')}
-                        className="h-96 w-3/5"
+                        className="catagory-image w-3/5"
                     />
                     <h2 className="text-2xl">Mugs</h2>
+                    <div></div>
                 </div>
 
-                <div className=" flex justify-between items-center justify-center">
+                <div className=" flex justify-between items-center justify-center   mt-16">
+                    <div></div>
                     <h2 className="text-2xl">Bowls</h2>
                     <img
                         src="https://i.imgur.com/h84lOXL.png"
                         alt="Bowls"
                         onClick={() => handleCategory('Bowls')}
-                        className="h-96 w-3/5"
+                        className="catagory-image w-3/5"
                     />
                 </div>
             </div>
