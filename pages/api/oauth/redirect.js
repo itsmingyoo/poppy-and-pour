@@ -33,6 +33,7 @@ async function handler(req, res) {
         const tokenData = await response.json()
         console.log("SUCCESS")
         console.log("THIS IS THE DATA SENT BACK ---------> ", tokenData)
+        res.redirect(`/api/oauth/welcome?access_token=${tokenData.access_token}`);
         res.send(tokenData);
     } else {
         console.log("FAIL")

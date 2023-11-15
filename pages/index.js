@@ -14,21 +14,11 @@ function HomePage(props) {
     async function handleEtsyPing() {
         const response = await fetch('/api/etsyAPI/ping')
         if (!response.ok) {
-            console.log("ERROR WHILE PINGING ETSY API")
+            console.log('ERROR WHILE PINGING ETSY API')
             return
         }
         const data = await response.json()
-        console.log("RESPONSE DATA ---> ", data)
-    }
-
-    async function handleEtsyToken() {
-        const response = await fetch('/api/etsyAPI/redirect')
-        if (!response.ok) {
-            console.log("ERROR OCCURED")
-            return
-        }
-        // const data = await response.json()
-        // console.log("RESPONSE DATA ---> ", data)
+        console.log('RESPONSE DATA ---> ', data)
     }
 
     function handleCategory(category) {
@@ -93,7 +83,7 @@ function HomePage(props) {
                 </div>
             </div>
             <button onClick={handleEtsyPing}>Ping Etsy</button>
-            <button onClick={handleEtsyToken}>GET TOKEN DATA?</button>
+            {/* <button onClick={handleRefreshToken}>GET TOKEN DATA?</button> */}
         </div>
     )
 }
