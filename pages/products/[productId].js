@@ -49,7 +49,7 @@ function ProductDetails(props) {
     if (loading) return <p>Loading...</p>
 
     return (
-        <div>
+        <div className='mt-14 ml-20 mr-20'>
             <div className="flex w-full h-full mt-5">
                 <div className="flex w-1/2">
                     <Container maxWidth="false">
@@ -79,18 +79,18 @@ function ProductDetails(props) {
 
             {/* Reviews Heading */}
             <div className='flex items-center mt-12 mb-6'>
-                <h2 className='text-center text-4xl mr-5'>Reviews</h2>
+                <h2 className='text-center text-4xl mr-5 ml-6'>Reviews</h2>
                 <BasicRatingReadOnly />
             </div>
 
             {/* Review Mapping */}
             <div className='flex w-full h-full'>
-                <div className='flex flex-col flex-1'>
+                <div className='flex flex-col flex-1 ml-6'>
                     {productDetails && reviews && (
                         <SingleProductReviews reviews={initialReviews} />
                     )}
                 </div>
-                <div className='flex flex-1 h-full justify-center'>
+                <div className='flex flex-1 h-full justify-center mb-24'>
                     <EtsyReviewStack />
                 </div>
             </div>
