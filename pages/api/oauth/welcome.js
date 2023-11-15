@@ -1,6 +1,20 @@
+import { prisma } from '../../../server/db/client'
+
 async function handler(req, res) {
-    const { access_token } = req.query
-    console.log('we hit it')
+
+    // // we will now query for the access token through prisma
+    // const { access_token } = req.query
+    // console.log('we hit it')
+
+    async function fetchToken() {
+        // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
+        const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
+        const data = await res.json()
+        return data
+    }
+
+    const token = await fetchToken()
+    const access_token = token.accessToken
 
     // An Etsy access token includes your shop/user ID
     // as a token prefix, so we can extract that too

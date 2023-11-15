@@ -32,16 +32,39 @@ async function handler(req, res) {
     // Extract the access token from the response access_token data field
     if (response.ok) {
         const tokenData = await response.json()
-        console.log('SUCCESS')
-        console.log('THIS IS THE DATA SENT BACK ---------> ', tokenData)
+        // console.log('SUCCESS')
+        // console.log('THIS IS THE DATA SENT BACK ---------> ', tokenData)
 
-        res.redirect(
-            `/api/oauth/welcome?access_token=${tokenData.access_token}`
-        )
-        res.send(tokenData)
+        try {
+            const token = await prisma.token.findFirst({
+                where: {
+                    id: 1,
+                },
+            })
+
+            if (!token) { // if no token, create the token and return null, the middleware function will then call this route again to grab newly generated token
+                const token = await prisma.token.create({
+                    data: {
+                        accessToken:  tokenData.access_token,
+                        refreshToken: tokenData.refresh_token,
+                        expiresIn: tokenData.expires_in
+                    }
+                })
+                console.log("THIS IS TOKEN --->", token)
+                res.status(200).json(token)
+            } else { // if token already in database, simply return token
+                console.log("THIS IS TOKEN --->", token)
+                res.status(200).json(token)
+            }
+
+        } catch (e) {
+            console.log('we failed to upsert token', e)
+            res.status(500).json({ error: 'failed to query for token' })
+        }
+
     } else {
         console.log('FAIL')
-        res.send('oops')
+        res.status(500).json({message: 'Could Not Generate Token Data'})
     }
 }
 

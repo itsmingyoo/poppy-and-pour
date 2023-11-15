@@ -96,5 +96,6 @@ model Token {
   id           Int      @id @default(autoincrement())
   accessToken  String
   refreshToken String
+  expiresIn    Int
   createdAt    DateTime @default(now())
 }
