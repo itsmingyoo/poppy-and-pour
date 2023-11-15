@@ -31,16 +31,16 @@ model User {
 }
 
 model Order {
-  id             Int      @id @default(autoincrement())
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade) // this is the relationship of user to userid
+  id             Int     @id @default(autoincrement())
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade) // this is the relationship of user to userid
   userId         Int
-  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId      Int
   batchId        String // String bc UUID generates string characters
   quantity       Int
   orderDate      String
   trackingNumber String? // nullable
-  status         Status   @default(PROCESSING)
+  status         Status  @default(PROCESSING)
   total          Int
 
   @@index([batchId])
@@ -74,7 +74,7 @@ model Photo {
   id        Int     @id @default(autoincrement())
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
-  url       String @unique  //need unique here to do upsert on photo model
+  url       String  @unique //need unique here to do upsert on photo model
 }
 
 model Cart {
@@ -89,4 +89,12 @@ enum Status {
   SHIPPED
   DELIVERING
   COMPLETED
+}
+
+// ACCESS TOKEN & REFRESH TOKEN
+model Token {
+  id           Int      @id @default(autoincrement())
+  accessToken  String
+  refreshToken String
+  createdAt    DateTime @default(now())
 }

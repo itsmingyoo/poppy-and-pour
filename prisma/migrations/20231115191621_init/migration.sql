@@ -72,6 +72,16 @@ CREATE TABLE "Cart" (
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Token" (
+    "id" SERIAL NOT NULL,
+    "accessToken" TEXT NOT NULL,
+    "refreshToken" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Token_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
