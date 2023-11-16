@@ -11,6 +11,14 @@ function HomePage(props) {
     const { products } = props
     const router = useRouter()
 
+    const clientId = process.env.ETSY_API_KEY;
+        const redirectUri = 'http://localhost:3000/api/oauth/redirect';
+        const scope = 'email_r';
+        const state = '77pwaj';
+        const codeChallenge = '8OFFvT8zjL0zoUxZg3M7crd0h-7WScXNd8mFakma7Fw';
+        const codeChallengeMethod = 'S256';
+        const url = `https://www.etsy.com/oauth/connect?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`;
+
     async function handleEtsyPing() {
         const response = await fetch('/api/etsyAPI/ping')
         if (!response.ok) {
@@ -23,24 +31,6 @@ function HomePage(props) {
 
     async function handleMinhUserData() {
 
-        const clientId = process.env.ETSY_API_KEY;
-        const redirectUri = 'http://localhost:3000/api/oauth/redirect';
-        const scope = 'email_r';
-        const state = '77pwaj';
-        const codeChallenge = '8OFFvT8zjL0zoUxZg3M7crd0h-7WScXNd8mFakma7Fw';
-        const codeChallengeMethod = 'S256';
-        const url = `https://www.etsy.com/oauth/connect?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`;
-
-        try {
-            const res = await fetch(url);
-            if(res.ok) {
-                window.location.href = redirectUri;
-            }
-            // Handle the response
-        } catch (error) {
-            // Handle errors
-            console.error('Error:', error);
-        }
 
         const response = await fetch('/api/oauth/welcome')
         if (!response.ok) {
@@ -112,11 +102,11 @@ function HomePage(props) {
                     />
                 </div>
             </div>
+            
             <button onClick={handleEtsyPing}>Ping Etsy</button>
-
-            {/* {THIS MIGHT MESS UP BECAUSE WE RUNNING TWO FETCH CALLS THAT DONT AWAIT EACH OTHER} DO FURTHER TESTING */}
-            <button onClick={handleMinhUserData}>GET MINH USER DATA</button>
+            <a href={`https://www.etsy.com/oauth/connect?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`}>GET MINH USER DATA</a>
             {/* <button onClick={handleMinhUserData}>GET MINH USER DATA</button> */}
+
         </div>
     )
 }

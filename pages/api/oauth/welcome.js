@@ -6,6 +6,7 @@ async function handler(req, res) {
     // const { access_token } = req.query
     // console.log('we hit it')
 
+
     async function fetchToken() {
         // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
         const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
@@ -37,6 +38,9 @@ async function handler(req, res) {
         const userData = await response.json()
         // Load the template with the first name as a template variable.
         console.log('user data', userData)
+
+        // can only get this to refresh at home page currently...
+        res.redirect('http://localhost:3000/')
         res.status(200).send(userData)
     } else {
         res.send('oops')

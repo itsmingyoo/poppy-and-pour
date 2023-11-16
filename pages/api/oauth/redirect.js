@@ -51,10 +51,12 @@ async function handler(req, res) {
                     }
                 })
                 console.log("THIS IS TOKEN --->", token)
-                res.status(200).json(token)
+                res.redirect(`http://localhost:3000/api/oauth/welcome`);
+                // res.status(200).json(token)
             } else { // if token already in database, simply return token
+                res.redirect(`http://localhost:3000/api/oauth/welcome`);
                 console.log("THIS IS TOKEN --->", token)
-                res.status(200).json(token)
+                // res.status(200).json(token)
             }
 
         } catch (e) {
