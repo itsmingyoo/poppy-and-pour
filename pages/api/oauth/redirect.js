@@ -10,7 +10,6 @@ const redirectUri = 'http://localhost:3000/api/oauth/redirect'
 async function handler(req, res) {
     // The req.query object has the query params that Etsy authentication sends
     // to this route. The authorization code is in the `code` param
-    console.log('REDIRECTED!!!!!!!!!!!!!')
     const authCode = req.query.code
     const tokenUrl = 'https://api.etsy.com/v3/public/oauth/token'
     const requestOptions = {
@@ -32,17 +31,8 @@ async function handler(req, res) {
     // Extract the access token from the response access_token data field
     if (response.ok) {
         const tokenData = await response.json()
-        // console.log('SUCCESS')
-        // console.log('THIS IS THE DATA SENT BACK ---------> ', tokenData)
 
-        try {
-            const token = await prisma.token.findFirst({
-                where: {
-                    id: 1,
-                },
-            })
-
-            if (!token) { // if no token, create the token and return null, the middleware function will then call this route again to grab newly generated token
+        try { // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates
                 const token = await prisma.token.create({
                     data: {
                         accessToken:  tokenData.access_token,
@@ -51,22 +41,15 @@ async function handler(req, res) {
                     }
                 })
                 console.log("THIS IS TOKEN --->", token)
-                res.redirect(`http://localhost:3000/api/oauth/welcome`);
-                // res.status(200).json(token)
-            } else { // if token already in database, simply return token
-                res.redirect(`http://localhost:3000/api/oauth/welcome`);
-                console.log("THIS IS TOKEN --->", token)
-                // res.status(200).json(token)
-            }
-
+                res.status(200).json(token)
         } catch (e) {
-            console.log('we failed to upsert token', e)
-            res.status(500).json({ error: 'failed to query for token' })
+            console.log('we failed to create token', e)
+            res.status(500).send('failed to query for token' )
         }
 
     } else {
         console.log('FAIL')
-        res.status(500).json({message: 'Could Not Generate Token Data'})
+        res.status(500).send('Could Not Generate Token Data')
     }
 }
 

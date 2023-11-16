@@ -2,11 +2,6 @@ import { prisma } from '../../../server/db/client'
 
 async function handler(req, res) {
 
-    // // we will now query for the access token through prisma
-    // const { access_token } = req.query
-    // console.log('we hit it')
-
-
     async function fetchToken() {
         // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
         const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
@@ -40,10 +35,9 @@ async function handler(req, res) {
         console.log('user data', userData)
 
         // can only get this to refresh at home page currently...
-        res.redirect('http://localhost:3000/')
-        res.status(200).send(userData)
+        res.status(200).json(userData)
     } else {
-        res.send('oops')
+        res.status(500).json({message: 'COULD NOT RETRIEVE USER DATA'})
     }
 }
 export default handler
