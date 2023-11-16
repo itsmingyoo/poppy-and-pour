@@ -1,4 +1,5 @@
 import { prisma } from '../../../server/db/client'
+import { validateTokenWithDB } from '../../../lib/tokenValidator'
 
 async function handler(req, res) {
     // // we will now query for the access token through prisma
@@ -32,21 +33,23 @@ async function handler(req, res) {
         requestOptions
     )
 
-    const uData = await response.json()
-
-    console.log('WELCOME - Response: ', response)
-    console.log('WELCOME - userData', uData)
+    // const uData = await response.json()
+    // console.log('WELCOME - Response: ', response)
+    // console.log('WELCOME - userData', uData)
 
     if (response.ok) {
         const userData = await response.json()
         // Load the template with the first name as a template variable.
-        console.log('user data', userData)
+        console.log('welcome user', userData)
 
         // can only get this to refresh at home page currently...
         res.redirect('http://localhost:3000/')
         res.status(200).send(userData)
     } else {
-        res.send('Else statement: but success!')
+        res.send({
+            message: 'Failed to grab user due to expired token',
+            error: uData,
+        })
     }
 }
 export default handler
