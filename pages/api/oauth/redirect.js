@@ -32,13 +32,22 @@ async function handler(req, res) {
     if (response.ok) {
         const tokenData = await response.json()
 
-        try { // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates
-                const token = await prisma.token.create({
-                    data: {
+        try { // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates, use upsert in case link was hit more than once
+                const token = await prisma.token.upsert({
+                    where: {
+                        id: 1,
+                    },
+                    create: {
                         accessToken:  tokenData.access_token,
                         refreshToken: tokenData.refresh_token,
                         expiresIn: tokenData.expires_in
-                    }
+                    },
+                    update: {
+                        accessToken:  tokenData.access_token,
+                        refreshToken: tokenData.refresh_token,
+                        expiresIn: tokenData.expires_in,
+                        createdAt: new Date()
+                    },
                 })
                 console.log("THIS IS TOKEN --->", token)
                 res.status(200).json(token)
