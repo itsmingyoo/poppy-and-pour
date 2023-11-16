@@ -11,14 +11,6 @@ function HomePage(props) {
     const { products } = props
     const router = useRouter()
 
-    const clientId = process.env.ETSY_API_KEY;
-        const redirectUri = 'http://localhost:3000/api/oauth/redirect';
-        const scope = 'email_r';
-        const state = '77pwaj';
-        const codeChallenge = '8OFFvT8zjL0zoUxZg3M7crd0h-7WScXNd8mFakma7Fw';
-        const codeChallengeMethod = 'S256';
-        const url = `https://www.etsy.com/oauth/connect?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`;
-
     async function handleEtsyPing() {
         const response = await fetch('/api/etsyAPI/ping')
         if (!response.ok) {
@@ -27,18 +19,6 @@ function HomePage(props) {
         }
         const data = await response.json()
         console.log('RESPONSE DATA ---> ', data)
-    }
-
-    async function handleMinhUserData() {
-
-
-        const response = await fetch('/api/oauth/welcome')
-        if (!response.ok) {
-            console.log("ERROR RETREIVING MINH USER DATA")
-            return
-        }
-        const data = await response.json()
-        console.log("MINHS USER DATA ---> ", data)
     }
 
     function handleCategory(category) {
@@ -50,8 +30,9 @@ function HomePage(props) {
             <h1 className="text-4xl mb-4 text-center">THE HOME PAGE</h1>
             <Link href="/sample"> SAMPLE PRODUCTS </Link>
             <br />
-            <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
+            <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE</Link>
             <br />
+            <button onClick={handleEtsyPing}>Ping Etsy</button>
 
             <div className="mx-auto w-3/5">
                 <Carousel autoPlay={true} animation="slide">
@@ -102,11 +83,6 @@ function HomePage(props) {
                     />
                 </div>
             </div>
-            
-            <button onClick={handleEtsyPing}>Ping Etsy</button>
-            <a href={`https://www.etsy.com/oauth/connect?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`}>GET MINH USER DATA</a>
-            {/* <button onClick={handleMinhUserData}>GET MINH USER DATA</button> */}
-
         </div>
     )
 }

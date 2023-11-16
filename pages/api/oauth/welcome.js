@@ -1,11 +1,9 @@
 import { prisma } from '../../../server/db/client'
 
 async function handler(req, res) {
-
     // // we will now query for the access token through prisma
     // const { access_token } = req.query
     // console.log('we hit it')
-
 
     async function fetchToken() {
         // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
@@ -34,6 +32,11 @@ async function handler(req, res) {
         requestOptions
     )
 
+    const uData = await response.json()
+
+    console.log('WELCOME - Response: ', response)
+    console.log('WELCOME - userData', uData)
+
     if (response.ok) {
         const userData = await response.json()
         // Load the template with the first name as a template variable.
@@ -43,7 +46,7 @@ async function handler(req, res) {
         res.redirect('http://localhost:3000/')
         res.status(200).send(userData)
     } else {
-        res.send('oops')
+        res.send('Else statement: but success!')
     }
 }
 export default handler
