@@ -50,20 +50,16 @@ async function handler(req, res) {
 
             console.log("\nWE FAILED BECAUSE... ", jsonResponse.error)
             console.log("---------------------------------------------------------------------------")
+            console.log('RESPONSE STATUS CODE', response.status, response.statusText)
+            console.log("---------------------------------------------------------------------------")
+            res.status(500).json('FAILED')
+            //////////////////////////////////////////////////////////////////////////
+        } else {
+            console.log('RESPONSE', response.status, response.statusText)
+            const listings = await response.json()
+            console.log('ALL LISTINGS --- ', listings)
+            res.status(200).json(listings)
         }
-        //////////////////////////////////////////////////////////////////////////
-
-
-    if (response.ok) {
-        console.log('RESPONSE', response.status, response.statusText)
-        const listings = await response.json()
-        console.log('SUCCESS!! - LISTINGS HERE ----> ', listings)
-        res.status(200).json(listings)
-    } else {
-        console.log('RESPONSE STATUS CODE', response.status, response.statusText)
-        console.log("---------------------------------------------------------------------------")
-        res.status(500).json('FAILED')
-    }
 }
 
 export default handler

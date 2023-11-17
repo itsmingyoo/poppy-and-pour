@@ -20,7 +20,7 @@ async function updateToken(newTokenDataObj) {
     )
     if (response.ok) {
         const data = await response.json()
-        console.log('TOKEN UPDATED ---> ', data)
+        return data
     } else {
         console.log('TOKEN DID NOT UPDATE')
     }
@@ -32,7 +32,7 @@ export async function middleware(req) {
 
     // this grabs the token data from the database
     const token = await fetchToken()
-    console.log(' --- TOKEN DATA RETREIVED FROM DATABASE --> ', token)
+    console.log('TOKEN DATA RETREIVED FROM DATABASE --------> ', token)
 
     // check if the access token needs to be updated
     if (token.expiresIn === 3600) {
@@ -63,10 +63,10 @@ export async function middleware(req) {
             const updatedData = await response.json()
 
             // update the token in the database
-            const updatedToken = await fetch(updateToken(updatedData))
-            console.log("token update successful... your new access token ----> ", updatedToken)
+            const updatedToken = await updateToken(updatedData)
+            console.log("token update SUCCESSFUL, your new access token: ", updatedToken)
         } else {
-            console.log('access token valid, no need to refresh it...')
+            console.log('VALID ACCESS TOKEN (no refresh neccessary)...')
         }
     }
 }

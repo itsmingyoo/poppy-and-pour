@@ -13,7 +13,7 @@ async function handler(req, res) {
                 createdAt: new Date()
             },
         })
-        res.status(201).json(newToken)
+        res.status(200).json(newToken)
     } catch(e) {
         console.log(e)
         res.status(500).json({message: 'Failed to Update Information On Token In Database'})
