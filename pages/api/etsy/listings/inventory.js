@@ -13,23 +13,21 @@ async function handler(req, res) {
         },
     }
 
-    // // use the userId to get the shopId  <-------- !! ! USE FOR EXPLAINING PURPOSES
-    // const fetchStoreId = await fetch(
-    //     `https://openapi.etsy.com/v3/application/users/815744532/shops`,
-    //     requestOptions
-    // )
-    // const storeId = await fetchStoreId.json()
-    // console.log("STORE OBJECT (INCLUDES STOREID) -----> ", storeId)
+    // TEST
+    const getInventory =
+        'https://openapi.etsy.com/v3/application/listings/1610960877/inventory'
+    const PID = 18774652071
+    const getProductInfo = `https://openapi.etsy.com/v3/application/listings/1610960877/inventory/products/18774652071`
+    const getListingImage = `https://openapi.etsy.com/v3/application/listings/1610960877/images`
+    /**
+     * listing_image_id // returns image id
+     * url_fullxfull // returns image link
+     */
 
-    const response = await fetch(
-        `https://openapi.etsy.com/v3/application/shops/45618436/listings`,
-        requestOptions
-    )
+    const resp = await fetch(getListingImage, requestOptions)
 
-    // ADDITIONAL INFO ON WHY THE FETCH FAILED
-    //////////////////////////////////////////////////////////////////////////
-    if (!response.ok) {
-        const stream = response.body
+    if (!resp.ok) {
+        const stream = resp.body
         const reader = stream.getReader()
         const chunks = []
         while (true) {
@@ -52,34 +50,19 @@ async function handler(req, res) {
             '---------------------------------------------------------------------------'
         )
         console.log(
-            'RESPONSE STATUS CODE',
-            response.status,
-            response.statusText
+            'Failed to find test-item-1',
+            resp.status,
+            resp.statusText,
+            resp.body
         )
         console.log(
             '---------------------------------------------------------------------------'
         )
-        res.status(500).json('FAILED')
-        //////////////////////////////////////////////////////////////////////////
+        res.status(500).json('Failed to find test-item-1')
     } else {
-        console.log('RESPONSE', response.status, response.statusText)
-        const listings = await response.json()
-        console.log('ALL LISTINGS --- ', listings)
-        /**
-         * count
-         * results[0].keysBelow
-         * listing_id
-         * title
-         * description
-         * quantity
-         * url
-         * is_customizable
-         * price
-         * amount
-         * original_creation_timestamp
-         * updated_timestamp
-         */
-        res.status(200).json(listings)
+        const INVENTORY = await resp.json()
+        console.log('IMAGE', INVENTORY)
+        res.status(200).json(INVENTORY)
     }
 }
 
