@@ -1,5 +1,3 @@
-import { prisma } from '../../../server/db/client'
-
 async function handler(req, res) {
     async function fetchToken() {
         // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
@@ -13,7 +11,6 @@ async function handler(req, res) {
 
     // An Etsy access token includes your shop/user ID
     // as a token prefix, so we can extract that too
-    const user_id = access_token.split('.')[0]
 
     const requestOptions = {
         headers: {
@@ -22,21 +19,26 @@ async function handler(req, res) {
             Authorization: `Bearer ${access_token}`,
         },
     }
+    console.log('seb is gay', access_token)
+    try {
+        const response = await fetch(
+            `https://openapi.etsy.com/v3/application/shops/${process.env.SHOP_ID}/listings/active`,
+            // working fetch link
+            // 'https://openapi.etsy.com/v3/application/listings/active',
+            requestOptions
+        )
+        console.log('RESPONSE', response)
 
-    const response = await fetch(
-        `https://api.etsy.com/v3/application/users/${user_id}`,
-        requestOptions
-    )
-
-    if (response.ok) {
-        const userData = await response.json()
-        // Load the template with the first name as a template variable.
-        console.log('user data', userData)
-
-        // can only get this to refresh at home page currently...
-        res.status(200).json(userData)
-    } else {
-        res.status(500).json({ message: 'COULD NOT RETRIEVE USER DATA' })
+        if (response.ok) {
+            console.log('SUCCESS - LISTINGS HERE')
+            const listings = await response.json()
+            console.log(listings)
+            res.status(200).json(listings)
+        }
+        res.status(500).json('FAILED')
+    } catch (e) {
+        console.log(e)
     }
 }
+
 export default handler

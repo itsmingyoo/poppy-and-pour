@@ -22,7 +22,7 @@ function HomePage(props) {
             <br />
             <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
             <br />
-            <Link href='/etsyAPIRoutes'> ETSY API ROUTES </Link>
+            <Link href="/etsy-admin"> ETSY ADMIN </Link>
 
             <div className="mx-auto w-3/5">
                 <Carousel autoPlay={true} animation="slide">

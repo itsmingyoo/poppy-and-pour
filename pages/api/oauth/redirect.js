@@ -31,31 +31,31 @@ async function handler(req, res) {
     // Extract the access token from the response access_token data field
     if (response.ok) {
         const tokenData = await response.json()
-
-        try { // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates, use upsert in case link was hit more than once
-                const token = await prisma.token.upsert({
-                    where: {
-                        id: 1,
-                    },
-                    create: {
-                        accessToken:  tokenData.access_token,
-                        refreshToken: tokenData.refresh_token,
-                        expiresIn: tokenData.expires_in
-                    },
-                    update: {
-                        accessToken:  tokenData.access_token,
-                        refreshToken: tokenData.refresh_token,
-                        expiresIn: tokenData.expires_in,
-                        createdAt: new Date()
-                    },
-                })
-                console.log("THIS IS TOKEN --->", token)
-                res.status(200).json(token)
+        console.log('asldkjfalewjfa', tokenData)
+        try {
+            // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates, use upsert in case link was hit more than once
+            const token = await prisma.token.upsert({
+                where: {
+                    id: 1,
+                },
+                create: {
+                    accessToken: tokenData.access_token,
+                    refreshToken: tokenData.refresh_token,
+                    expiresIn: tokenData.expires_in,
+                },
+                update: {
+                    accessToken: tokenData.access_token,
+                    refreshToken: tokenData.refresh_token,
+                    expiresIn: tokenData.expires_in,
+                    createdAt: new Date(),
+                },
+            })
+            console.log('THIS IS TOKEN --->', token)
+            res.status(200).json(token)
         } catch (e) {
             console.log('we failed to create token', e)
-            res.status(500).send('failed to query for token' )
+            res.status(500).send('failed to query for token')
         }
-
     } else {
         console.log('FAIL')
         res.status(500).send('Could Not Generate Token Data')

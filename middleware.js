@@ -8,7 +8,6 @@ async function fetchToken() {
     return data
 }
 
-
 // this is a function to update a token in the database if the accessToken has expired
 async function updateToken(newTokenDataObj) {
     const response = await fetch(
@@ -26,7 +25,6 @@ async function updateToken(newTokenDataObj) {
         console.log('TOKEN DID NOT UPDATE')
     }
 }
-
 
 // this middleware function runs for every request specified in the match export configuration object
 export async function middleware(req) {
@@ -74,7 +72,7 @@ export async function middleware(req) {
 }
 
 export const config = {
-    matcher: '/api/oauth/welcome',
+    matcher: ['/api/oauth/welcome', '/api/etsy/listings'],
 }
 
 // Single or Multi Paths
