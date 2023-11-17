@@ -42,12 +42,12 @@ export async function middleware(req) {
         // Calculate the difference in milliseconds
         const timeDifference = currentDate - dateOfAccessToken
 
-        // Define the duration of 24 hours in milliseconds
-        const twentyFourHoursInMilliseconds = 24 * 60 * 60 * 1000
+        // Define the duration of 1 hour in milliseconds
+        const oneHourInMilliseconds = 60 * 60 * 1000
 
-        // Check if 24 hours have elapsed
-        if (timeDifference >= twentyFourHoursInMilliseconds) {
-            console.log('24 hours have elapsed')
+        // Check if 1 hour has elapsed
+        if (timeDifference >= oneHourInMilliseconds) {
+            console.log('1 hour has elapsed... refreshing token...')
 
             // generate a new access token
             const url = 'https://api.etsy.com/v3/public/oauth/token'
@@ -62,6 +62,7 @@ export async function middleware(req) {
             })
 
             const updatedData = await response.json()
+            console.log("token update successful... your new access token ----> ", updatedData)
 
             // update the token in the database
             await fetch(updateToken(updatedData))
