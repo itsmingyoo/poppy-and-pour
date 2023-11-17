@@ -60,12 +60,11 @@ export async function middleware(req) {
                 },
                 body: `grant_type=refresh_token&client_id=${clientId}&refresh_token=${refreshToken}`,
             })
-
             const updatedData = await response.json()
-            console.log("token update successful... your new access token ----> ", updatedData)
 
             // update the token in the database
-            await fetch(updateToken(updatedData))
+            const updatedToken = await fetch(updateToken(updatedData))
+            console.log("token update successful... your new access token ----> ", updatedToken)
         } else {
             console.log('access token valid, no need to refresh it...')
         }

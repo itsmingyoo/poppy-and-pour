@@ -1,48 +1,68 @@
+import { fetchDBToken } from "../../oauth/welcome"
+
 async function handler(req, res) {
-    async function fetchToken() {
-        // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
-        const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
-        const data = await res.json()
-        return data
-    }
 
-    const token = await fetchToken()
+    const token = await fetchDBToken()
     const access_token = token.accessToken
-
-    // An Etsy access token includes your shop/user ID
-    // as a token prefix, so we can extract that too
-
-    console.log('ACCESS TOKEN RECEIVED --------> ', access_token)
-
-    const headers = new Headers()
-    headers.append('x-api-key', process.env.ETSY_API_KEY)
-    headers.append('Authorization', `Bearer ${access_token}`)
 
     const requestOptions = {
         method: 'GET',
-        headers: headers,
+        headers: {
+            'x-api-key': process.env.ETSY_API_KEY,
+            // !!! Scoped endpoints require a bearer token !!!
+            Authorization: `Bearer ${access_token}`,
+        },
     }
 
-    try {
-        const response = await fetch(
-            `https://openapi.etsy.com/v3/application/shops/1213166269553/listings`,
-            // `https://openapi.etsy.com/v3/application/shops/${process.env.SHOP_ID}/listings/active`,
-            // working fetch link
-            // 'https://openapi.etsy.com/v3/application/listings/active',
-            requestOptions
-        )
-        console.log('RESPONSE', response.status, response.statusText)
+    // // use the userId to get the shopId  <-------- !! ! USE FOR EXPLAINING PURPOSES
+    // const fetchStoreId = await fetch(
+    //     `https://openapi.etsy.com/v3/application/users/815744532/shops`,
+    //     requestOptions
+    // )
+    // const storeId = await fetchStoreId.json()
+    // console.log("STORE OBJECT (INCLUDES STOREID) -----> ", storeId)
 
-        if (response.ok) {
-            console.log('SUCCESS - LISTINGS HERE')
-            const listings = await response.json()
-            console.log(listings)
-            res.status(200).json(listings)
-        } else {
-            res.status(500).json('FAILED')
+    const response = await fetch(
+        `https://openapi.etsy.com/v3/application/shops/45618436/listings`,
+        requestOptions
+    )
+
+        // ADDITIONAL INFO ON WHY THE FETCH FAILED
+        //////////////////////////////////////////////////////////////////////////
+        if (!response.ok) {
+            const stream = response.body;
+            const reader = stream.getReader();
+            const chunks = [];
+            while (true) {
+                const { done, value } = await reader.read();
+            if (done) {
+                break;
+            }
+            chunks.push(value);
+            }
+            const jsonString = chunks.join('');
+            // Convert the comma-separated integers to an array of numbers
+            const numbers = jsonString.split(',').map(Number);
+            // Convert the array of numbers to a string
+            const jsonStringFromNumbers = String.fromCharCode(...numbers);
+            // Parse the string as JSON
+            const jsonResponse = JSON.parse(jsonStringFromNumbers);
+
+            console.log("\nWE FAILED BECAUSE... ", jsonResponse.error)
+            console.log("---------------------------------------------------------------------------")
         }
-    } catch (e) {
-        console.log(e)
+        //////////////////////////////////////////////////////////////////////////
+
+
+    if (response.ok) {
+        console.log('RESPONSE', response.status, response.statusText)
+        const listings = await response.json()
+        console.log('SUCCESS!! - LISTINGS HERE ----> ', listings)
+        res.status(200).json(listings)
+    } else {
+        console.log('RESPONSE STATUS CODE', response.status, response.statusText)
+        console.log("---------------------------------------------------------------------------")
+        res.status(500).json('FAILED')
     }
 }
 

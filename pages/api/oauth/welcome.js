@@ -1,14 +1,13 @@
-import { prisma } from '../../../server/db/client'
+export async function fetchDBToken() {
+    // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
+    const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
+    const data = await res.json()
+    return data
+}
 
 async function handler(req, res) {
-    async function fetchToken() {
-        // !! ! !!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS URL NEEDS TO BE CHANGED FOR PRODUCTION
-        const res = await fetch('http://localhost:3000/api/oauth/fetchToken')
-        const data = await res.json()
-        return data
-    }
 
-    const token = await fetchToken()
+    const token = await fetchDBToken()
     const access_token = token.accessToken
 
     // An Etsy access token includes your shop/user ID
