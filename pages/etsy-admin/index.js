@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 // all these variables are needed for the initial sign in auth to get the token in our database, if you move the sign up link, move these along with it
 const redirectUri = 'http://localhost:3000/api/oauth/redirect'
-const scope = 'listings_r email_r'
+const scope = 'address_r%20address_w%20billing_r%20cart_r%20cart_w%20email_r%20favorites_r%20favorites_w%20feedback_r%20listings_d%20listings_r%20listings_w%20profile_r%20profile_w%20recommend_r%20recommend_w%20shops_r%20shops_w%20transactions_r%20transactions_w'
 const codeChallengeMethod = 'S256'
 
 function EtsyAdmin() {

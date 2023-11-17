@@ -31,7 +31,7 @@ async function handler(req, res) {
     // Extract the access token from the response access_token data field
     if (response.ok) {
         const tokenData = await response.json()
-        console.log('asldkjfalewjfa', tokenData)
+        console.log("TOKEN DATA -----> ", tokenData)
         try {
             // initialize token in the database, from there, middleware will handle granting new access tokens with refresh tokens and expiration dates, use upsert in case link was hit more than once
             const token = await prisma.token.upsert({

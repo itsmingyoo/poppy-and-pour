@@ -15,6 +15,10 @@ const nextConfig = {
     SHOPIFY_STOREFRONT_ACCESS_TOKEN:
       process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN,
+    ETSY_API_KEY: process.env.ETSY_API_KEY,
+    CODE_CHALLENGE: process.env.CODE_CHALLENGE,
+    STATE: process.env.STATE,
+    SHOP_ID: process.env.SHOP_ID
   },
 };
 

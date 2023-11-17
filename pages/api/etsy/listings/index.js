@@ -12,30 +12,40 @@ async function handler(req, res) {
     // An Etsy access token includes your shop/user ID
     // as a token prefix, so we can extract that too
 
+    console.log("ACCESS TOKEN RECEIVED --------> ", access_token)
+
+    const headers = new Headers()
+    headers.append('x-api-key', process.env.ETSY_API_KEY)
+    headers.append('Authorization', `Bearer ${access_token}`)
+
     const requestOptions = {
-        headers: {
-            'x-api-key': process.env.ETSY_API_KEY,
-            // Scoped endpoints require a bearer token
-            Authorization: `Bearer ${access_token}`,
-        },
+        method: 'GET',
+        headers: headers
     }
-    console.log('seb is gay', access_token)
+
     try {
         const response = await fetch(
-            `https://openapi.etsy.com/v3/application/shops/${process.env.SHOP_ID}/listings/active`,
+            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
+            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
+            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
+            // !! ! MINH CHECK THIS OUT ------------> https://i.gyazo.com/44ee9684685cbe07357461397165a92d.png
+            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
+            `https://openapi.etsy.com/v3/application/shops/1213166269553/listings`,
+            // `https://openapi.etsy.com/v3/application/shops/${process.env.SHOP_ID}/listings/active`,
             // working fetch link
             // 'https://openapi.etsy.com/v3/application/listings/active',
             requestOptions
         )
-        console.log('RESPONSE', response)
+        console.log('RESPONSE', response.status, response.statusText)
 
         if (response.ok) {
             console.log('SUCCESS - LISTINGS HERE')
             const listings = await response.json()
             console.log(listings)
             res.status(200).json(listings)
+        } else {
+            res.status(500).json('FAILED')
         }
-        res.status(500).json('FAILED')
     } catch (e) {
         console.log(e)
     }
