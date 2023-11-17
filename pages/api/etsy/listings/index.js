@@ -12,7 +12,7 @@ async function handler(req, res) {
     // An Etsy access token includes your shop/user ID
     // as a token prefix, so we can extract that too
 
-    console.log("ACCESS TOKEN RECEIVED --------> ", access_token)
+    console.log('ACCESS TOKEN RECEIVED --------> ', access_token)
 
     const headers = new Headers()
     headers.append('x-api-key', process.env.ETSY_API_KEY)
@@ -20,16 +20,11 @@ async function handler(req, res) {
 
     const requestOptions = {
         method: 'GET',
-        headers: headers
+        headers: headers,
     }
 
     try {
         const response = await fetch(
-            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
-            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
-            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
-            // !! ! MINH CHECK THIS OUT ------------> https://i.gyazo.com/44ee9684685cbe07357461397165a92d.png
-            //!!!!!!!!!!! !!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!! !!!!!!!!!!!!!!
             `https://openapi.etsy.com/v3/application/shops/1213166269553/listings`,
             // `https://openapi.etsy.com/v3/application/shops/${process.env.SHOP_ID}/listings/active`,
             // working fetch link
