@@ -26,7 +26,7 @@ function ShopifyProducts({ products }) {
         <>
             <button onClick={createProduct}>create product</button>
             <Link
-                href={`https://poppy-and-pour.myshopify.com/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=write_products&redirect_uri=http://localhost:3000/api/shopify/redirect&state=${process.env.NONCE}`}
+                href={`https://poppy-and-pour.myshopify.com/admin/oauth/authorize?client_id=${process.env.SHOPIFY_CLIENT_ID}&scope=write_products&redirect_uri=http://localhost:3000/api/shopify/redirect&state=${process.env.NONCE}`}
             >
                 LINK REDIRECT
             </Link>

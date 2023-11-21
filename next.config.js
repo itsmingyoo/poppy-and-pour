@@ -17,6 +17,7 @@ const nextConfig = {
         SHOPIFY_ADMIN_ACCESS_TOKEN: process.env.SHOPIFY_ADMIN_ACCESS_TOKEN,
         SHOPIFY_API_KEY: process.env.SHOPIFY_API_KEY,
         SHOPIFY_API_SECRET_KEY: process.env.SHOPIFY_API_SECRET_KEY,
+        SHOPIFY_CLIENT_ID: process.env.SHOPIFY_CLIENT_ID,
         NONCE: process.env.NONCE,
         SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN,
         ETSY_API_KEY: process.env.ETSY_API_KEY,
