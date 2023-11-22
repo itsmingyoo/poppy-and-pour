@@ -8,7 +8,7 @@ async function handler(req, res) {
 
     var post_data = {
         "product": {
-          "title": "test product 1",
+          "title": "test product 3",
           "body_html": "<strong>Good snowboard!</strong>",
           "vendor": "Poppy and Pour",
           "product_type": "Snowboard",
@@ -34,8 +34,8 @@ async function handler(req, res) {
 
                 console.log("error message ", err)
             } else {
-
-                console.log("data message", data)
+                console.log("data message", data.product)
+                console.log("data message", data.product.options)
             }
           });
 
