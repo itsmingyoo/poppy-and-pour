@@ -99,3 +99,8 @@ model Token {
   expiresIn    Int
   createdAt    DateTime @default(now())
 }
+
+model ShopifyToken {
+  id           Int      @id @default(autoincrement())
+  accessToken  String
+}
