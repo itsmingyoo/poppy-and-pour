@@ -16,7 +16,8 @@
     "shopify-build": "shopify app build",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "push": "shopify app config push"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
