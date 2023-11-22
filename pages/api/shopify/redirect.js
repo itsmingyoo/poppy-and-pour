@@ -3,7 +3,6 @@ import { prisma } from '../../../server/db/client'
 const shopifyAPI = require('shopify-node-api')
 
 async function handler(req, res) {
-
     // config object for the Shopify class thats needed to grab the initial access token
     const config = {
         shop: 'poppy-and-pour.myshopify.com',
@@ -19,7 +18,6 @@ async function handler(req, res) {
     let shopify = new shopifyAPI(config), // pass in your config object
         // pass in the query used at login
         query_params = req.query
-
 
     // if our request Signature is valid, this method should return the access_token (wrote this way to avoid loosing context)
     async function exchangeTemporaryToken(query_params) {
