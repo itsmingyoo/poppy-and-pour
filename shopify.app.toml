@@ -1,0 +1,22 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "poppy-and-pour"
+client_id = "ffd9a044ad9747946491adf35fbacd67"
+application_url = "https://poppy-and-pour.myshopify.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [ "http://localhost:3000/api/shopify/redirect" ]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[build]
+dev_store_url = "poppy-and-pour.myshopify.com"

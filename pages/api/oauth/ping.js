@@ -15,7 +15,7 @@ async function handler(req, res) {
 
     if (response.ok) {
         const data = await response.json()
-        console.log("DATA IN BACKEND FOR ETSY API PING --> ", data)
+        console.log('DATA IN BACKEND FOR ETSY API PING --> ', data)
         return res.status(200).json(data)
     } else {
         return res.status(500).json({ message: 'Error pinging Etsy' })

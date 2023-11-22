@@ -12,30 +12,10 @@ function HomePage(props) {
     const { products } = props
     const router = useRouter()
 
-    async function handleEtsyPing() {
-        const response = await fetch('/api/etsyAPI/ping')
-        if (!response.ok) {
-            console.log("ERROR WHILE PINGING ETSY API")
-            return
-        }
-        const data = await response.json()
-        console.log("RESPONSE DATA ---> ", data)
-    }
-
-    async function handleEtsyToken() {
-        const response = await fetch('/api/etsyAPI/redirect')
-        if (!response.ok) {
-            console.log("ERROR OCCURED")
-            return
-        }
-        // const data = await response.json()
-        // console.log("RESPONSE DATA ---> ", data)
-    }
-
     function handleCategory(category) {
         router.push(`/categories/${category}`)
     }
-    // console.log(products);
+
     return (
         <div className="container mx-auto">
             <Typography variant='h1' className="text-4xl mb-4 text-center">THE HOME PAGE</Typography>
@@ -44,6 +24,7 @@ function HomePage(props) {
             <br />
             <Link href="/api/auth/signin"> SIGNIN WITH GOOGLE </Link>
             <br />
+            <Link href="/etsy-admin"> ETSY ADMIN </Link>
 
             <div className="mx-auto hompage-slider">
                 <Carousel autoPlay={true} animation="slide" >
@@ -102,8 +83,6 @@ function HomePage(props) {
                     />
                 </div>
             </div>
-            <button onClick={handleEtsyPing}>Ping Etsy</button>
-            <button onClick={handleEtsyToken}>GET TOKEN DATA?</button>
         </div>
     )
 }
