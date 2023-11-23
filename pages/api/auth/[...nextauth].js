@@ -19,7 +19,7 @@ export default NextAuth({
     providers: [
         CredentialsProvider({
             // this authorize function gets automatically called when we use the signIn() function in the login/signup form
-            authorize
+            authorize,
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -52,7 +52,7 @@ export default NextAuth({
             return token
         },
         async signIn({ account, profile, credentials }) {
-            if( account.provider === 'google' ) {
+            if (account.provider === 'google') {
                 if (!profile?.email) throw new Error('No profile')
                 console.log('account', account)
                 console.log('profile', profile)
