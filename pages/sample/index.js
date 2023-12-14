@@ -38,7 +38,7 @@ function ShopifyProducts({ products }) {
 export async function getServerSideProps(context) {
     const response = await getAllProducts()
     const allProducts = await response.json()
-    console.log('REGENERATING PAGE...')
+    console.log('REGENERATING SHOPIFY PRODUCTS...')
 
     return {
         props: {

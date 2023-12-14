@@ -1,3 +1,5 @@
+// !! IMPORTANT ROUTE FOR PRODUCTS WITH ALL THE KEYS WE NEED FOR EACH PRODUCT
+
 import { fetchDBToken } from '../../oauth/welcome'
 
 async function handler(req, res) {
@@ -65,21 +67,7 @@ async function handler(req, res) {
         console.log('RESPONSE', response.status, response.statusText)
         const listings = await response.json()
         console.log('ALL LISTINGS --- ', listings)
-        /**
-         * count
-         * results[0].keysBelow
-         * listing_id
-         * title
-         * description
-         * quantity
-         * url
-         * is_customizable
-         * price
-         * amount
-         * original_creation_timestamp
-         * updated_timestamp
-         */
-        res.status(200).json(listings)
+        return res.status(200).json(listings)
     }
 }
 

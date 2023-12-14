@@ -1,3 +1,5 @@
+// !! THIS ROUTE IS 'USELESS'
+
 import { fetchDBToken } from '../../oauth/welcome'
 
 async function handler(req, res) {
@@ -13,9 +15,11 @@ async function handler(req, res) {
         },
     }
 
-    // TEST
+    // INVENTORY API ROUTE
     const getInventory =
         'https://openapi.etsy.com/v3/application/listings/1610960877/inventory'
+
+    // OTHER TEST ROUTES
     const PID = 18774652071
     const getProductInfo = `https://openapi.etsy.com/v3/application/listings/1610960877/inventory/products/18774652071`
     const getListingImage = `https://openapi.etsy.com/v3/application/listings/1610960877/images`
@@ -24,7 +28,7 @@ async function handler(req, res) {
      * url_fullxfull // returns image link
      */
 
-    const resp = await fetch(getListingImage, requestOptions)
+    const resp = await fetch(getInventory, requestOptions)
 
     if (!resp.ok) {
         const stream = resp.body
@@ -60,9 +64,9 @@ async function handler(req, res) {
         )
         res.status(500).json('Failed to find test-item-1')
     } else {
-        const INVENTORY = await resp.json()
-        console.log('IMAGE', INVENTORY)
-        res.status(200).json(INVENTORY)
+        const inventory = await resp.json()
+        console.log('INVENTORY', inventory)
+        res.status(200).json(inventory)
     }
 }
 

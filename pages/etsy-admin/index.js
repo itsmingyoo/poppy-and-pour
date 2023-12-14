@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import GetEtsyProducts from '@/components/etsy/products'
 
 // all these variables are needed for the initial sign in auth to get the token in our database, if you move the sign up link, move these along with it
 const redirectUri = 'http://localhost:3000/api/oauth/redirect'
@@ -6,7 +7,7 @@ const scope =
     'address_r%20address_w%20billing_r%20cart_r%20cart_w%20email_r%20favorites_r%20favorites_w%20feedback_r%20listings_d%20listings_r%20listings_w%20profile_r%20profile_w%20recommend_r%20recommend_w%20shops_r%20shops_w%20transactions_r%20transactions_w'
 const codeChallengeMethod = 'S256'
 
-function EtsyAdmin() {
+function EtsyAdmin({ products }) {
     async function handleEtsyPing() {
         const response = await fetch('/api/oauth/ping')
         if (!response.ok) {
@@ -46,8 +47,8 @@ function EtsyAdmin() {
             return
         }
         const inventory = await response.json()
-        console.log('THIS IS YOUR INVENTORY', inventory)
-        console.log('THESE ARE YOUR PRODUCTS WITH PIDS', inventory.products)
+        console.log('inventory ===> ', inventory)
+        // console.log('inventory.products ===> ', inventory.products)
         return
     }
 
@@ -72,8 +73,42 @@ function EtsyAdmin() {
             <button onClick={handleListings}>GET ALL LISTINGS</button>
             <br /> <br />
             <button onClick={handleProductInfo}>GET INVENTORY WITH PIDs</button>
+            <GetEtsyProducts products={products} />
         </div>
     )
+}
+
+export async function getServerSideProps(context) {
+    try {
+        const response = await fetch('http://localhost:3000/api/etsy/listings')
+
+        console.log('etsy inventory fetch', response)
+
+        if (!response.ok) {
+            console.log('ERROR RETRIEVING PRODUCT INFO')
+            return {
+                props: {
+                    products: null, // or any default value indicating error
+                },
+            }
+        }
+        const etsyProducts = await response.json()
+
+        console.log('etsy inventory regenerating ===>', etsyProducts)
+
+        console.log('REGENERATING ETSY INVENTORY...')
+
+        return {
+            props: { products: etsyProducts },
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error)
+        return {
+            props: {
+                products: null, // or any default value indicating error
+            },
+        }
+    }
 }
 
 export default EtsyAdmin
